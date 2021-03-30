@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.17)
+project(LectureCode)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Werror -pedantic")
+
+add_executable(helloworld helloworld.cpp)
+add_executable(datatypes datatypes.cpp)
+add_executable(scopes scopes.cpp)
+add_executable(operators operators.cpp)
+add_executable(functions functions.cpp)
+add_executable(arrays arrays.cpp)
+add_executable(pointers pointers.cpp)
+add_executable(readfile readfile.cpp)
+add_executable(writefile writefile.cpp)
+add_executable(strings strings.cpp)
+add_executable(classes classes.cpp Rectangle.cpp Rectangle.h)
