@@ -6,8 +6,7 @@
 #define CPSC_5910_DATE_H
 
 #include <string>
-class Date
-{
+class Date {
 public:
     Date(int month, int day, int year);
     std::string GetMonthName() const;
