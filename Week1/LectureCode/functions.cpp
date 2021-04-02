@@ -14,6 +14,7 @@ void swap(int& first, int& second) {
 }
 
 void byValVsByRef(int passByValue, int& passByReference) {
+    std::cout << "Inside fcn: " << passByValue << " " << passByReference << std::endl;
     passByValue = 100;
     passByReference = 100;
 }
@@ -30,9 +31,9 @@ int main() {
 
     int third = 2;
     int fourth = 20;
-    std::cout << "Before: " << third << " " << third << std::endl;
+    std::cout << "Before: " << third << " " << fourth << std::endl;
     byValVsByRef(third, fourth);
-    std::cout << "After: " << third << " " << third << std::endl;
+    std::cout << "After: " << third << " " << fourth << std::endl;
 
     return 0;
 }

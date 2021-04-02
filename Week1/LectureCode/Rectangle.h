@@ -14,5 +14,4 @@ public:
     int GetArea() const;
 };
 
-
-#endif //LECTURECODE_RECTANGLE_H
+#endif //RECTANGLE_H
