@@ -20,7 +20,7 @@ int main() {
     testCalc("basic sub", 1, calc.Subtract(3, 2));
     testCalc("basic mult", 6, calc.Multiply(3, 2));
     testCalc("basic div", 1.5, calc.Divide(3, 2));
-
+/*
     CalculatorIO io;
     std::cout << "Calculate something that calculates to 5" << std::endl;
     testCalc("basic calc to 5 interactive", 5, io.CalculateInteractive());
@@ -38,7 +38,7 @@ int main() {
         std::cerr << "FAIL: invalid number" << std::endl;
     }
 
-    io.CalculateFile("input.txt", "output.txt");
-
+   // io.CalculateFile("input.txt", "output.txt");
+*/
     return 0;
 }

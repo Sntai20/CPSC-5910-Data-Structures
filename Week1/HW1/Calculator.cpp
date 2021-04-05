@@ -4,38 +4,41 @@
 
 // Adds two numbers and returns the result.
 double Calculator::Add(const double first, const double second){
-    double results = 0;
+    /*double results = 0;
     op = '+';
     double Calc(const double first, const double second, const char op);
-
-    return results;
+    */
+    return first + second;
 }
 
 
 // Subtracts two numbers and returns the result.
 double Calculator::Subtract(const double first, const double second){
-    double results = 0;
-    results = first - second;
-    return results;
+    //double results = 0;
+    return first - second;
 }
 
 // Multiplies two numbers and returns the result.
 double Calculator::Multiply(const double first, const double second){
-    double results = 0;
-    results = first * second;
-    return results;
+    //double results = 0;
+    return first * second;
 }
 
 // Divides two numbers and returns the result.
 double Calculator::Divide(const double first, const double second){
-    double results = 0;
-    results = first / second;
-    return results;
+    //double results = 0;
+    return first / second;
 }
 
 // Runs the given calculation and returns the result.
 double Calculator::Calc(const double first, const double second, const char op){
-    const double results = 0;
-    results = first op second;
-    return results;
+    double results = 0;
+
+    if (op == '+'){
+        results = Calculator::Add( first, second);
+        return results;
+    } else {
+        //std::cout << "IDK";
+        return results;
+    }
 }
