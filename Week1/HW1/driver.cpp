@@ -20,9 +20,9 @@ int main() {
     testCalc("basic sub", 1, calc.Subtract(3, 2));
     testCalc("basic mult", 6, calc.Multiply(3, 2));
     testCalc("basic div", 1.5, calc.Divide(3, 2));
-/*
+
     CalculatorIO io;
-    std::cout << "Calculate something that calculates to 5" << std::endl;
+/*    std::cout << "Calculate something that calculates to 5" << std::endl;
     testCalc("basic calc to 5 interactive", 5, io.CalculateInteractive());
 
     std::cout << "Enter a string instead of a number" << std::endl;
@@ -40,5 +40,6 @@ int main() {
 
    // io.CalculateFile("input.txt", "output.txt");
 */
+    io.CalculateFile("input.txt");
     return 0;
 }

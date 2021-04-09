@@ -1,5 +1,6 @@
 // TOOO: CalculatorIO implementation goes in this file.
 #include <iostream>
+#include <fstream>
 #include "CalculatorIO.h"
 
 // Reads calculations line by line from input file and writes the results line by line to the output file.
@@ -15,11 +16,45 @@
 // Example output file:
 // 56
 // 6
-/* Uncomment to read a file
-void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
+// Uncomment to read a file
+void skipBlanks(std::ifstream& inputFilePath)
+{
+    while (inputFilePath.peek() == ' ')
+        inputFilePath.ignore(1);
+}
+void CalculatorIO::CalculateFile(const std::string& inputFilePath){
+    std::ifstream inFile(inputFilePath);
+    if (!inFile)
+    {
+        std::cout << "File does not exist";
+    }
+    //while (inFile.peek() != EOF)
+    //while (inFile.peek() != '\n' & inFile.peek() != EOF)
+    //    std::cout << (inFile.get());
+    while (inFile.peek() != '\n')
+    {
+        std::cout << (inFile.get());
+    }
+
+    inFile.ignore(1);
+    std::cout << "\n";
+    inFile.close();
 
 }
 
+/*
+void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
+    std::ifstream inFile("Input.txt");
+    if (!inFile)
+    {
+        std::cout << "File does not exist";
+    }
+    while (inFile.peek() != EOF)
+        std::cout << (inFile.get());
+
+    inFile.close();
+
+}
 
 double CalculatorIO::CalculateInteractive(){
     const double first = 3;
