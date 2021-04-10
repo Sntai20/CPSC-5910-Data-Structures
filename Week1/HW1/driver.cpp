@@ -37,9 +37,8 @@ int main() {
     } else {
         std::cerr << "FAIL: invalid number" << std::endl;
     }
-
-   // io.CalculateFile("input.txt", "output.txt");
 */
-    io.CalculateFile("input.txt");
+    io.CalculateFile("input.txt", "output.txt");
+
     return 0;
 }

@@ -16,13 +16,54 @@
 // Example output file:
 // 56
 // 6
-// Uncomment to read a file
+
+void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
+    // Open output file
+    std::ofstream myfile;
+    myfile.open (outputFilePath);
+
+    // Open input file
+    std::ifstream inFile;
+    char line[20];  // watch the size
+    inFile.open(inputFilePath);    // watch for the working directory when you run the project
+    if (inFile.is_open())
+    {
+        std::cout << "\nReading in file " + inputFilePath << std::endl;
+        while (inFile.getline(line, 20))
+        {
+            // TOOO: Parse strings. Reference Lecture code
+            // To print to the screen use std::out
+            std::cout << line << std::endl;
+            myfile << line << std::endl;
+        }
+        std::cout << "Output saved in " + outputFilePath << std::endl;
+
+        // Close input file
+        inFile.close();
+    }
+    // Close output file
+    myfile.close();
+}
+
+/*
+ * // Uncomment to read a file
 void skipBlanks(std::ifstream& inputFilePath)
 {
     while (inputFilePath.peek() == ' ')
         inputFilePath.ignore(1);
 }
-void CalculatorIO::CalculateFile(const std::string& inputFilePath){
+
+void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
+    std::ifstream inFile("Input.txt");
+    if (!inFile)
+    {
+        std::cout << "File does not exist";
+    }
+    while (inFile.peek() != EOF)
+        std::cout << (inFile.get());
+
+    inFile.close();
+
     std::ifstream inFile(inputFilePath);
     if (!inFile)
     {
@@ -40,22 +81,10 @@ void CalculatorIO::CalculateFile(const std::string& inputFilePath){
     std::cout << "\n";
     inFile.close();
 
-}
-
-/*
-void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
-    std::ifstream inFile("Input.txt");
-    if (!inFile)
-    {
-        std::cout << "File does not exist";
-    }
-    while (inFile.peek() != EOF)
-        std::cout << (inFile.get());
-
-    inFile.close();
 
 }
 
+ // TOOO: CalculatorIO::CalculateInteractive
 double CalculatorIO::CalculateInteractive(){
     const double first = 3;
     const double second = 2;

@@ -11,22 +11,18 @@ double Calculator::Add(const double first, const double second){
     return first + second;
 }
 
-
 // Subtracts two numbers and returns the result.
 double Calculator::Subtract(const double first, const double second){
-    //double results = 0;
     return first - second;
 }
 
 // Multiplies two numbers and returns the result.
 double Calculator::Multiply(const double first, const double second){
-    //double results = 0;
     return first * second;
 }
 
 // Divides two numbers and returns the result.
 double Calculator::Divide(const double first, const double second){
-    //double results = 0;
     return first / second;
 }
 
