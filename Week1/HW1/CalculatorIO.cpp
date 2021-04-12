@@ -33,7 +33,35 @@ void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::st
         {
             // TOOO: Parse strings. Reference Lecture code
             // To print to the screen use std::out
-            std::cout << line << std::endl;
+            // std::cout << line << std::endl;
+            std::string lineString(line);
+            // by character
+            for (long unsigned int i = 0; i < lineString.length(); i++)
+            {
+                if (lineString[i] != '\n' && lineString[i] != ' ')
+                {
+                    std::cout << lineString[i] << std::endl;
+                    /*if (lineString[i] == '*')
+                    {
+                        std::cout << lineString[i] << std::endl;
+                    }
+                    if (lineString[i] == '-')
+                    {
+                        std::cout << lineString[i] << std::endl;
+                    }
+                    if (lineString[i] == '+')
+                    {
+                        std::cout << lineString[i] << std::endl;
+                    }
+                    if (lineString[i] == '/')
+                    {
+                        std::cout << lineString[i] << std::endl;
+                    } else {
+                        std::cout << lineString[i] << std::endl;
+                    }*/
+                }
+            }
+
             myfile << line << std::endl;
         }
         std::cout << "Output saved in " + outputFilePath << std::endl;
@@ -45,7 +73,36 @@ void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::st
     myfile.close();
 }
 
+
 /*
+ // TOOO: CalculatorIO::CalculateInteractive
+double CalculatorIO::CalculateInteractive(){
+    const double first = 3;
+    const double second = 2;
+    const char op = '+';
+
+    //const char = '+';
+    // Prompts the user for:
+    // 1. First number.
+    // 2. Operation (+, -, *, /)
+    // 3. Second number.
+    // In this order, and uses the Calculator to calculate and return the result.
+
+    std::cout << "Enter the first number\n";
+    std::cout << "3";
+    //std::cin.get(firstNumber);
+    std::cout << "Enter op code (+, -, *, /)\n";
+    //std::cin >> op;
+    std::cout << "Enter the second number";
+    std::cout << "2";
+    //std::cin >> second;
+
+    double result = calc.Calc(first, second, op);
+    return result;
+
+}
+
+
  * // Uncomment to read a file
 void skipBlanks(std::ifstream& inputFilePath)
 {
@@ -83,30 +140,4 @@ void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::st
 
 
 }
-
- // TOOO: CalculatorIO::CalculateInteractive
-double CalculatorIO::CalculateInteractive(){
-    const double first = 3;
-    const double second = 2;
-    const char op = '+';
-
-    //const char = '+';
-    // Prompts the user for:
-    // 1. First number.
-    // 2. Operation (+, -, *, /)
-    // 3. Second number.
-    // In this order, and uses the Calculator to calculate and return the result.
-
-    std::cout << "Enter the first number\n";
-    std::cout << "3";
-    //std::cin.get(firstNumber);
-    std::cout << "Enter op code (+, -, *, /)\n";
-    //std::cin >> op;
-    std::cout << "Enter the second number";
-    std::cout << "2";
-    //std::cin >> second;
-
-    double result = calc.Calc(first, second, op);
-    return result;
-
-}*/
+*/
