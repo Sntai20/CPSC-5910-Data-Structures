@@ -1,6 +1,5 @@
 #ifndef HW1_CALCULATOR_H
 #define HW1_CALCULATOR_H
-
 #include <string>
 
 // Contains the basic methods for calculation.

@@ -1,7 +1,9 @@
-// TOOO: CalculatorIO implementation goes in this file.
+// TOOO: Exception handling CalculatorIO implementation.
 #include <iostream>
 #include <fstream>
 #include "CalculatorIO.h"
+#include <sstream>
+using namespace std;
 
 // Reads calculations line by line from input file and writes the results line by line to the output file.
 // If an error occurs on any given calculation, the output should include:
@@ -16,128 +18,80 @@
 // Example output file:
 // 56
 // 6
-
 void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
-    // Open output file
-    std::ofstream myfile;
-    myfile.open (outputFilePath);
 
-    // Open input file
-    std::ifstream inFile;
-    char line[20];  // watch the size
-    inFile.open(inputFilePath);    // watch for the working directory when you run the project
-    if (inFile.is_open())
+    string operand;
+    ifstream inputFile;
+    ofstream outputFile;
+    double firstNumber, secondNumber, results;
+
+    // Open input and output files
+    inputFile.open(inputFilePath, ios::in);
+    outputFile.open(outputFilePath, ios::out);
+
+    string str;
+    // loop to write file to the string
+    while (getline(inputFile, str))
     {
-        std::cout << "\nReading in file " + inputFilePath << std::endl;
-        while (inFile.getline(line, 20))
+        // TOOO: Parse strings. Reference Lecture code
+        // To print to the screen use std::out
+        istringstream iss(str);
+        iss >> firstNumber >> operand >> secondNumber;
+
+        if (operand == "*")
         {
-            // TOOO: Parse strings. Reference Lecture code
-            // To print to the screen use std::out
-            // std::cout << line << std::endl;
-            std::string lineString(line);
-            // by character
-            for (long unsigned int i = 0; i < lineString.length(); i++)
-            {
-                if (lineString[i] != '\n' && lineString[i] != ' ')
-                {
-                    std::cout << lineString[i] << std::endl;
-                    /*if (lineString[i] == '*')
-                    {
-                        std::cout << lineString[i] << std::endl;
-                    }
-                    if (lineString[i] == '-')
-                    {
-                        std::cout << lineString[i] << std::endl;
-                    }
-                    if (lineString[i] == '+')
-                    {
-                        std::cout << lineString[i] << std::endl;
-                    }
-                    if (lineString[i] == '/')
-                    {
-                        std::cout << lineString[i] << std::endl;
-                    } else {
-                        std::cout << lineString[i] << std::endl;
-                    }*/
-                }
-            }
-
-            myfile << line << std::endl;
+            results = calc.Multiply(firstNumber, secondNumber);
         }
-        std::cout << "Output saved in " + outputFilePath << std::endl;
+        else if (operand == "+")
+        {
+            results = calc.Add(firstNumber, secondNumber);
+        }
+        else if (operand == "-")
+        {
+            results = calc.Subtract(firstNumber, secondNumber);
+        }
+        else if (operand == "/")
+        {
+            results = calc.Divide(firstNumber, secondNumber);
+        }
 
-        // Close input file
-        inFile.close();
+        outputFile << results << endl;
     }
-    // Close output file
-    myfile.close();
 }
 
-
-/*
- // TOOO: CalculatorIO::CalculateInteractive
+// Prompts the user for first number.
+// 2. Operation (+, -, *, /)
+// 3. Second number.
+// In this order, and uses the Calculator to calculate and return the result.
+//Does the calculator operations
 double CalculatorIO::CalculateInteractive(){
-    const double first = 3;
-    const double second = 2;
-    const char op = '+';
+    char operand;
+    double firstNumber, secondNumber;
 
-    //const char = '+';
-    // Prompts the user for:
-    // 1. First number.
-    // 2. Operation (+, -, *, /)
-    // 3. Second number.
-    // In this order, and uses the Calculator to calculate and return the result.
+    cout << "Enter first number: ";
+    cin >> firstNumber;
 
-    std::cout << "Enter the first number\n";
-    std::cout << "3";
-    //std::cin.get(firstNumber);
-    std::cout << "Enter op code (+, -, *, /)\n";
-    //std::cin >> op;
-    std::cout << "Enter the second number";
-    std::cout << "2";
-    //std::cin >> second;
+    cout << "Enter in an operator(+, -, *, /): ";
+    cin >> operand;
 
-    double result = calc.Calc(first, second, op);
-    return result;
+    cout << "Enter in a second number: ";
+    cin >> secondNumber;
 
-}
-
-
- * // Uncomment to read a file
-void skipBlanks(std::ifstream& inputFilePath)
-{
-    while (inputFilePath.peek() == ' ')
-        inputFilePath.ignore(1);
-}
-
-void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath){
-    std::ifstream inFile("Input.txt");
-    if (!inFile)
+    if(operand == '+')
     {
-        std::cout << "File does not exist";
+        return calc.Add(firstNumber, secondNumber);
     }
-    while (inFile.peek() != EOF)
-        std::cout << (inFile.get());
-
-    inFile.close();
-
-    std::ifstream inFile(inputFilePath);
-    if (!inFile)
+    else if(operand == '-')
     {
-        std::cout << "File does not exist";
+        return calc.Subtract(firstNumber, secondNumber);
     }
-    //while (inFile.peek() != EOF)
-    //while (inFile.peek() != '\n' & inFile.peek() != EOF)
-    //    std::cout << (inFile.get());
-    while (inFile.peek() != '\n')
+    else if(operand == '*')
     {
-        std::cout << (inFile.get());
+        return calc.Multiply(firstNumber, secondNumber);
     }
-
-    inFile.ignore(1);
-    std::cout << "\n";
-    inFile.close();
-
-
+    else if(operand == '/')
+    {
+        return calc.Divide(firstNumber, secondNumber);
+    }
+    return 0;
 }
-*/

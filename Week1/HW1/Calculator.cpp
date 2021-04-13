@@ -28,13 +28,20 @@ double Calculator::Divide(const double first, const double second){
 
 // Runs the given calculation and returns the result.
 double Calculator::Calc(const double first, const double second, const char op){
-    double results = 0;
-
-    if (op == '+'){
-        results = Calculator::Add( first, second);
-        return results;
-    } else {
-        //std::cout << "IDK";
-        return results;
+    if(op == '+'){
+        return first + second;
     }
+    else if(op == '-')
+    {
+        return first - second;
+    }
+    else if(op == '*')
+    {
+        return first * second;
+    }
+    else if(op == '/')
+    {
+        return first / second;
+    }
+    return 0;
 }
