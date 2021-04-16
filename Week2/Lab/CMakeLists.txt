@@ -4,4 +4,4 @@ project(Lab)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Werror -pedantic")
 
-add_executable(Lab lab2.cpp)
+add_executable(Lab lab2solution.cpp)

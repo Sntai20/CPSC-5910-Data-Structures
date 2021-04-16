@@ -13,7 +13,7 @@ int fact(int n) {
     }
 }
 int main() {
-    std::cout << fact(20) << std::endl;
+    std::cout << fact(10) << std::endl;
     std::cout << numCalls << std::endl;
     return 0;
 }
