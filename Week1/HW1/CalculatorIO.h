@@ -21,9 +21,7 @@ public:
     // Example output file:
     // 56
     // 6
-   // Uncomment to read a file
     void CalculateFile(const std::string& inputFilePath, const std::string& outputFilePath);
-   // void CalculateFile(const std::string& inputFilePath);
 
     // Prompts the user for:
     // 1. First number.

@@ -54,7 +54,6 @@ void CalculatorIO::CalculateFile(const std::string& inputFilePath, const std::st
         {
             results = calc.Divide(firstNumber, secondNumber);
         }
-
         outputFile << results << endl;
     }
 }
