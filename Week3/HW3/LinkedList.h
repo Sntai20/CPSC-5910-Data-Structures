@@ -29,7 +29,8 @@ private:
 
 public:
     LinkedList();
-    LinkedList(const LinkedList<ItemType>& aList);
+    LinkedList(const LinkedList<ItemType>& aList); // This is the copy constructor definition.
+
     virtual ~LinkedList();
 
     bool isEmpty() const;
@@ -45,6 +46,14 @@ public:
     /** @throw std::invalid_argument if position < 1 or
                                         position > getLength(). */
     ItemType replace(int position, const ItemType& newEntry);
+
+    /** @throw std::invalid_argument if position < 1 or
+     *                                  position > getLength().
+     * @param position
+     * @param Entry
+     * @return
+     */
+    //ItemType contains(const ItemType& anEntry) const;
 }; // end LinkedList
 
 #include "LinkedList.cpp"

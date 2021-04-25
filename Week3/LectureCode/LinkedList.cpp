@@ -132,11 +132,89 @@ bool LinkedList<ItemType>::remove(int position)
     return ableToRemove;
 } // end remove
 
+// std::string removed = listPtr->replace(3, "foobar");
 template<class ItemType>
 ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry)
 {
-    std::cout << "replacing at position " << position << " with " + newEntry << std::endl;
+    //std::cout << "replacing at position " << position << " with " + newEntry << std::endl;
+
+    // We need a node first.
+    Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+    bool ableToRemove = (position >= 1) && (position <= itemCount);
+    if (ableToRemove)
+    {
+        Node<ItemType>* curPtr = nullptr;
+        if (position == 1)
+        {
+            // Remove the first node in the chain
+            curPtr = headPtr; // Save pointer to node
+            headPtr = headPtr->newNodePtr;
+        }
+        else
+        {
+            // Find node that is before the one to remove
+            Node<ItemType>* prevPtr = getNodeAt(position - 1);
+
+            // Point to node to remove
+            curPtr = prevPtr->getNext();
+
+            // Disconnect indicated node from chain by connecting the
+            // prior node with the one after
+            prevPtr->setNext(newNodePtr);
+            newNodePtr->setNext(curPtr->getNext());
+        } // end if
+
+        // Return node to system
+        curPtr->setNext(nullptr);
+        delete curPtr;
+        curPtr = nullptr;
+        itemCount--; // Decrease count of entries
+    } // end if
+
+    return ableToRemove;
+
+    // Remove at 3
+
+
+    // Insert at 3
+
+
+
+
 
     // TODO
     return getEntry(3);
 }  // end replace
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

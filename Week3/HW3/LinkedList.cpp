@@ -3,10 +3,46 @@
 #include <iostream>
 #include <assert.h>
 
+using namespace std;
+
 template<class ItemType>
 LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0)
 {
 } // end default constructor
+
+template<class ItemType>
+LinkedList<ItemType>::LinkedList(const LinkedList<ItemType> &aList)
+{
+    itemCount = aList->itemCount;
+    Node<ItemType>* origChainPtr = aList->headPtr;
+
+    if (origChainPtr == nullptr)
+    {
+        headPtr = nullptr ; // Original bag is empty; so is copy
+    }
+    else
+    {
+        // Copy first node
+        headPtr = new Node<ItemType>();
+        headPtr->setItem(origChainPtr ->getItem());
+        // Copy remaining nodes
+        Node<ItemType>* newChainPtr = headPtr; // Last-node pointer
+
+        while (origChainPtr != nullptr )
+        {
+            origChainPtr = origChainPtr ->getNext(); // Advance pointer
+            // Get next item from original chain
+            ItemType nextItem = origChainPtr->getItem();
+            // Create a new node containing the next item
+            Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+            // Link new node to end of new chain
+            newChainPtr->setNext(newNodePtr);
+            // Advance pointer to new last node
+            newChainPtr = newChainPtr->getNext();
+        } // end while
+        newChainPtr->setNext( nullptr ); // Flag end of new chain
+    } // end if
+} // end Copy constructor implementation
 
 template<class ItemType>
 void LinkedList<ItemType>::clear()
@@ -51,6 +87,8 @@ ItemType LinkedList<ItemType>::getEntry(int position) const
     } // end if
 } // end getEntry
 
+// Returns either a pointer to the node containing a given entry
+// or the null pointer if the entry is not in the bag.
 template<class ItemType>
 Node<ItemType>* LinkedList<ItemType>::getNodeAt(int position) const
 {
@@ -132,15 +170,87 @@ bool LinkedList<ItemType>::remove(int position)
     return ableToRemove;
 } // end remove
 
-template<class ItemType>
+
+ template<class ItemType>
 ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry)
 {
-    std::cout << "replacing at position " << position << " with " + newEntry << std::endl;
+    // Enforce precondition
+    bool ableToSet = (position >= 1) && (position <= itemCount);
+    if (ableToSet)
+    {
+        Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
 
-    // TODO
-    return getEntry(3);
+        Node<ItemType>* curPtr = nullptr;
+        if (position == 1)
+        {
+            // Replace the first node in the chain
+            curPtr = headPtr; // Save pointer to node
+            headPtr = newNodePtr;
+            newNodePtr->setNext(curPtr->getNext());
+        }
+        else
+        {
+            // Find node that is before the one to remove
+            Node<ItemType>* prevPtr = getNodeAt(position - 1);
+
+            // Point to node to replace
+            curPtr = prevPtr->getNext();
+
+            prevPtr->setNext(newNodePtr);
+            newNodePtr->setNext(curPtr->getNext());
+        } // end if
+
+        // Return node to system and clean up the removed node.
+        ItemType ret = curPtr->getItem();
+        curPtr->setNext(nullptr);
+        delete curPtr;
+        curPtr = nullptr;
+        return ret;
+    }
+    else
+    {
+        std::string message = "replace() called with an empty list or ";
+        message = message + "invalid position.";
+        throw(std::invalid_argument(message));
+    } // end if
 }  // end replace
 
+/* working on the contains method
+//The definition of the method contains is straightforward:
+template < class ItemType>
+ItemType LinkedList<ItemType>::contains( const ItemType& anEntry) const {
+
+
+     return (getNodeAt(anEntry) != nullptr );
+
+    cout << "contains at position " << " with " + anEntry << std::endl;
+
+} // end contains
+*/
+
+/* original contains
 // TODO: LinkedList<ItemType>>::contains
+template<class ItemType>
+ItemType LinkedList<ItemType>::contains(int position, const ItemType& Entry) {
+   //cout << "contains at position " << position << " with " + Entry << std::endl;
+
+   // TODO
+   // Enforce precondition
+   bool ableToGet = (position >= 1) && (position <= itemCount);
+   if (ableToGet)
+   {
+       Node<ItemType>* nodePtr = getNodeAt(position);
+       if (nodePtr->getItem() == Entry)
+           return Entry;
+   }
+   else
+   {
+       std::string message = "getEntry() called with an empty list or ";
+       message = message + "invalid position.";
+       throw(std::invalid_argument(message));
+   } // end if
+   return getEntry(position);
+}
+ */
 
 // TODO: LinkedList<ItemType>>::containsRecursive

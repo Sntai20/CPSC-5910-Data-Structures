@@ -59,6 +59,8 @@ public:
      @return  The replaced entry. */
     virtual ItemType replace(int position, const ItemType& newEntry) = 0;
 
+    //virtual ItemType contains(const ItemType& anEntry) const = 0;
+
     /** Destroys this list and frees its assigned memory. */
     virtual ~ListInterface() { }
 }; // end ListInterface
