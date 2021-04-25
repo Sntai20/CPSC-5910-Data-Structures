@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 template<class ItemType>
 LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0)
 {
@@ -215,42 +216,37 @@ ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry)
     } // end if
 }  // end replace
 
-/* working on the contains method
-//The definition of the method contains is straightforward:
-template < class ItemType>
-ItemType LinkedList<ItemType>::contains( const ItemType& anEntry) const {
+template <class ItemType>
+int LinkedList<ItemType>::getFrequencyOf(const ItemType& anEntry) const
+{
+    int frequency = 0;
+    int counter = 0;
+    Node<ItemType>* curPtr = headPtr;
 
-
-     return (getNodeAt(anEntry) != nullptr );
-
-    cout << "contains at position " << " with " + anEntry << std::endl;
-
-} // end contains
-*/
-
-/* original contains
-// TODO: LinkedList<ItemType>>::contains
-template<class ItemType>
-ItemType LinkedList<ItemType>::contains(int position, const ItemType& Entry) {
-   //cout << "contains at position " << position << " with " + Entry << std::endl;
-
-   // TODO
-   // Enforce precondition
-   bool ableToGet = (position >= 1) && (position <= itemCount);
-   if (ableToGet)
-   {
-       Node<ItemType>* nodePtr = getNodeAt(position);
-       if (nodePtr->getItem() == Entry)
-           return Entry;
-   }
-   else
-   {
-       std::string message = "getEntry() called with an empty list or ";
-       message = message + "invalid position.";
-       throw(std::invalid_argument(message));
-   } // end if
-   return getEntry(position);
+    while((curPtr != nullptr) && (counter < itemCount))
+    {
+        if(anEntry == curPtr->getItem())
+        {
+            frequency++;
+        }
+        counter++;
+        curPtr = curPtr->getNext();
+    }
+    return frequency;
 }
- */
 
-// TODO: LinkedList<ItemType>>::containsRecursive
+// TODO: LinkedList<ItemType>>::contains
+template <class ItemType>
+bool LinkedList<ItemType>::contains(const ItemType& anEntry) const
+{
+    bool listContains = getFrequencyOf(anEntry) > 0;
+    return listContains;
+} // end contains
+
+template<class ItemType>
+bool LinkedList<ItemType>::containsRecursive(const ItemType& anEntry) const
+{
+    // TODO: LinkedList<ItemType>>::containsRecursive
+    bool listContains = getFrequencyOf(anEntry) > 0;
+    return listContains;
+}

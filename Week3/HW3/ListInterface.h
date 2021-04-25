@@ -59,7 +59,11 @@ public:
      @return  The replaced entry. */
     virtual ItemType replace(int position, const ItemType& newEntry) = 0;
 
-    //virtual ItemType contains(const ItemType& anEntry) const = 0;
+    virtual int getFrequencyOf(const ItemType& anEntry) const = 0;
+
+    virtual bool contains(const ItemType& anEntry) const = 0;
+
+    virtual bool containsRecursive(const ItemType& anEntry) const = 0;
 
     /** Destroys this list and frees its assigned memory. */
     virtual ~ListInterface() { }

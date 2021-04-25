@@ -43,6 +43,8 @@ public:
                                         position > getLength(). */
     ItemType getEntry(int position) const;
 
+    int getFrequencyOf(const ItemType& anEntry) const;
+
     /** @throw std::invalid_argument if position < 1 or
                                         position > getLength(). */
     ItemType replace(int position, const ItemType& newEntry);
@@ -53,7 +55,9 @@ public:
      * @param Entry
      * @return
      */
-    //ItemType contains(const ItemType& anEntry) const;
+    bool contains(const ItemType& anEntry) const;
+
+    bool containsRecursive(const ItemType& anEntry) const;
 }; // end LinkedList
 
 #include "LinkedList.cpp"
