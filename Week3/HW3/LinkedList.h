@@ -1,5 +1,8 @@
 //  Created by Frank M. Carrano and Timothy M. Henry.
 //  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
+//
+// Created by Antonio Santana on 4/25/21.
+//
 
 /** ADT list: Link-based implementation.
     Listing 9-2.
@@ -30,6 +33,7 @@ private:
 public:
     LinkedList();
     LinkedList(const LinkedList<ItemType>& aList); // This is the copy constructor definition.
+    LinkedList<ItemType>& operator=(const LinkedList<ItemType> &aList);
 
     virtual ~LinkedList();
 
@@ -57,7 +61,7 @@ public:
      */
     bool contains(const ItemType& anEntry) const;
 
-    bool containsRecursive(const ItemType& anEntry) const;
+    //Node<ItemType>* containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const;
 }; // end LinkedList
 
 #include "LinkedList.cpp"

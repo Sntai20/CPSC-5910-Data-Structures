@@ -1,3 +1,6 @@
+//
+// Created by Antonio Santana on 4/25/21.
+//
 #include "LinkedList.h"
 #include <stdexcept>
 #include <iostream>
@@ -12,7 +15,7 @@ LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0)
 } // end default constructor
 
 template<class ItemType>
-LinkedList<ItemType>::LinkedList(const LinkedList<ItemType> &aList)
+LinkedList<ItemType>& LinkedList<ItemType>::operator=(const LinkedList<ItemType> &aList)
 {
     itemCount = aList->itemCount;
     Node<ItemType>* origChainPtr = aList->headPtr;
@@ -235,7 +238,6 @@ int LinkedList<ItemType>::getFrequencyOf(const ItemType& anEntry) const
     return frequency;
 }
 
-// TODO: LinkedList<ItemType>>::contains
 template <class ItemType>
 bool LinkedList<ItemType>::contains(const ItemType& anEntry) const
 {
@@ -243,10 +245,20 @@ bool LinkedList<ItemType>::contains(const ItemType& anEntry) const
     return listContains;
 } // end contains
 
-template<class ItemType>
-bool LinkedList<ItemType>::containsRecursive(const ItemType& anEntry) const
+/*template<class ItemType>
+Node<ItemType>* LinkedList<ItemType>::containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const
 {
     // TODO: LinkedList<ItemType>>::containsRecursive
-    bool listContains = getFrequencyOf(anEntry) > 0;
-    return listContains;
+    Node<ItemType>* result = nullptr;
+    if (curPtr != nullptr){
+        if(anEntry == curPtr->getItem()){
+            result = curPtr;
+        } else{
+            result = containsRecursive(anEntry, curPtr->getNext());
+        }
+    }
+    return result;
+    //bool listContains = getFrequencyOf(anEntry) > 0;
+    //return listContains;
 }
+ */

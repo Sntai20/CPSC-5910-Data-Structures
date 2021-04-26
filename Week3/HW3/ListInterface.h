@@ -1,5 +1,8 @@
 //  Created by Frank M. Carrano and Timothy M. Henry.
 //  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
+//
+// Created by Antonio Santana on 4/25/21.
+//
 
 /** Interface for the ADT list
     Listing 8-1
@@ -63,7 +66,7 @@ public:
 
     virtual bool contains(const ItemType& anEntry) const = 0;
 
-    virtual bool containsRecursive(const ItemType& anEntry) const = 0;
+    //virtual Node<ItemType>* containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const = 0;
 
     /** Destroys this list and frees its assigned memory. */
     virtual ~ListInterface() { }

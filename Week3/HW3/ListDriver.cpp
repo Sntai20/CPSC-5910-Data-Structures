@@ -1,5 +1,8 @@
 //  Created by Frank M. Carrano and Timothy M. Henry.
 //  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
+//
+// Created by Antonio Santana on 4/25/21.
+//
 
 #include "LinkedList.h"
 #include <iostream>
@@ -18,6 +21,7 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
               << "; should be 1 (true)" << std::endl;
 
     // insert and getEntry methods
+    cout << "Insert and getEntry methods";
     cout << endl;
     for (int i = 0; i < ITEM_COUNT; i++)
     {
@@ -38,7 +42,26 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
             std::cout << "Cannot insert " << data[i] << " at position " << (i + 1)
                       << std::endl;
     }  // end for
-    cout << endl;
+
+    // Display the list
+    cout << "\nThe items in the list are: " << endl;
+    for (int i = 0; i < ITEM_COUNT; i++)
+    {
+        cout << listPtr->getEntry(i + 1) << ", ";
+    }  // end for
+    cout << "\n" << endl;
+
+    // TODO: Demonstrate assignment operator here.
+    ListInterface<std::string>* listPtr2 = listPtr;
+    cout << "Demonstrate assignment operator here: ListInterface<std::string>* listPtr2(listPtr)" << endl;
+
+    // Display the copied list
+    cout << "The items in the copied list are: " << endl;
+    for (int i = 0; i < ITEM_COUNT; i++)
+    {
+        cout << listPtr2->getEntry(i + 1) << ", ";
+    }  // end for
+    cout << "\n" << endl;
 
     // Replace method
     string removed = listPtr->replace(3, "foobar");
@@ -61,8 +84,27 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
          listPtr->contains("seven") << " should be 0 (false)" << endl;
 
     // ContainsRecursive method
-    cout << "containsRecursive(\"one\"): returns " << listPtr->containsRecursive("one") << " should be 1 (true)" << endl;
-    //listPtr->containsRecursive("one");
+    //cout << "containsRecursive(\"one\"): returns " <<
+        //listPtr->containsRecursive("one", listPtr) << " should be 1 (true)" << endl;
+
+    // clear method
+    cout << "clear(): should clear the list" << endl;
+    listPtr->clear();
+
+    // Display the list
+    if (!listPtr->isEmpty())
+    {
+        cout << "\nThe items in the list are: " << endl;
+        for (int i = 0; i < ITEM_COUNT; i++)
+        {
+            cout << listPtr->getEntry(i + 1) << ", ";
+        }  // end for
+    } else
+        // isEmpty method
+        std::cout << "isEmpty: returns " << listPtr->isEmpty()
+            << "; should be 1 (true)" << std::endl;
+
+
 
     cout << endl;
 }
@@ -71,13 +113,11 @@ int main()
 {
     ListInterface<std::string>* listPtr = new LinkedList<std::string>();
 
-    cout << "Testing the LinkedList-based ListInterface:" << endl;
+    cout << "Testing the LinkedList-based ListInterface: \n" << endl;
     listInterfaceTester(listPtr);
     cout << "All done testing the LinkedList-based ListInterface!" << endl;
 
     delete listPtr;
-
-    // TODO: Demonstrate assignment operator here.
 
     return 0;
 }  // end main
