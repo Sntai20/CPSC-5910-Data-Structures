@@ -10,13 +10,12 @@ using namespace std;
 
 const int ITEM_COUNT = 6;
 
-void stringDemoTester(ListInterface<std::string>* listPtr)
+void stringDemoTester(String* aString)
 {
+    cout << aString << endl;
+    /*
     string data[] = {"one", "two", "three", "four", "five", "six"};
 
-    // isEmpty method
-    std::cout << "isEmpty: returns " << listPtr->isEmpty()
-              << "; should be 1 (true)" << std::endl;
 
     // insert and getEntry methods
     cout << "Insert and getEntry methods";
@@ -46,18 +45,6 @@ void stringDemoTester(ListInterface<std::string>* listPtr)
     for (int i = 0; i < ITEM_COUNT; i++)
     {
         cout << listPtr->getEntry(i + 1) << ", ";
-    }  // end for
-    cout << "\n" << endl;
-
-    // TODO: Demonstrate assignment operator here.
-    ListInterface<std::string>* listPtr2 = listPtr;
-    cout << "Demonstrate assignment operator here: ListInterface<std::string>* listPtr2(listPtr)" << endl;
-
-    // Display the copied list
-    cout << "The items in the copied list are: " << endl;
-    for (int i = 0; i < ITEM_COUNT; i++)
-    {
-        cout << listPtr2->getEntry(i + 1) << ", ";
     }  // end for
     cout << "\n" << endl;
 
@@ -93,24 +80,20 @@ void stringDemoTester(ListInterface<std::string>* listPtr)
         // isEmpty method
         std::cout << "isEmpty: returns " << listPtr->isEmpty()
                   << "; should be 1 (true)" << std::endl;
-
-
-
+*/
     cout << endl;
 }
 
 int main()
 {
-    ListInterface<std::string>* listPtr = new LinkedList<std::string>();
-
-    cout << "StringDemo" << std::endl;
+    String* aString = new String();
 
     // TODO: Test String methods here
-    cout << "Testing the LinkedList-based ListInterface: \n" << endl;
-    stringDemoTester(listPtr);
-    cout << "All done testing the LinkedList-based ListInterface!" << endl;
+    cout << "Testing the LinkedList-based StringDemo: \n" << endl;
+    stringDemoTester(aString);
+    cout << "All done testing the LinkedList-based StringDemo!" << endl;
 
-    delete listPtr;
+    delete aString;
 
     return 0;
 }  // end main

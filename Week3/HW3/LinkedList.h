@@ -33,13 +33,14 @@ private:
 public:
     LinkedList();
     LinkedList(const LinkedList<ItemType>& aList); // This is the copy constructor definition.
-    LinkedList<ItemType>& operator=(const LinkedList<ItemType> &aList);
+    LinkedList<ItemType>& operator=(LinkedList<char> *aList);
 
     virtual ~LinkedList();
 
     bool isEmpty() const;
     int getLength() const;
     bool insert(int newPosition, const ItemType& newEntry);
+    void append(const ItemType& newEntry);
     bool remove(int position);
     void clear();
 
@@ -60,8 +61,9 @@ public:
      * @return
      */
     bool contains(const ItemType& anEntry) const;
+    bool containsRecursive(const ItemType& anEntry) const;
+    bool containsRecursive_(const ItemType &anEntry, Node<ItemType> *curPtr) const ;
 
-    //Node<ItemType>* containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const;
 }; // end LinkedList
 
 #include "LinkedList.cpp"

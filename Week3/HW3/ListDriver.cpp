@@ -53,7 +53,7 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
 
     // TODO: Demonstrate assignment operator here.
     ListInterface<std::string>* listPtr2 = listPtr;
-    cout << "Demonstrate assignment operator here: ListInterface<std::string>* listPtr2(listPtr)" << endl;
+    cout << "Demonstrate assignment operator here: ListInterface<std::string>* listPtr2 = listPtr" << endl;
 
     // Display the copied list
     cout << "The items in the copied list are: " << endl;
@@ -75,18 +75,6 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
     cout << "getFrequencyOf(\"six\"): returns " <<
         listPtr->getFrequencyOf("six") << " should be 1" << endl;
 
-    // Contains method true
-    cout << "contains(\"six\"): returns " <<
-         listPtr->contains("six") << " should be 1 (true)" << endl;
-
-    // Contains method false
-    cout << "contains(\"seven\"): returns " <<
-         listPtr->contains("seven") << " should be 0 (false)" << endl;
-
-    // ContainsRecursive method
-    //cout << "containsRecursive(\"one\"): returns " <<
-        //listPtr->containsRecursive("one", listPtr) << " should be 1 (true)" << endl;
-
     // clear method
     cout << "clear(): should clear the list" << endl;
     listPtr->clear();
@@ -103,8 +91,6 @@ void listInterfaceTester(ListInterface<std::string>* listPtr)
         // isEmpty method
         std::cout << "isEmpty: returns " << listPtr->isEmpty()
             << "; should be 1 (true)" << std::endl;
-
-
 
     cout << endl;
 }

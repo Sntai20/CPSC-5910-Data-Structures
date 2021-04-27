@@ -66,7 +66,7 @@ public:
 
     virtual bool contains(const ItemType& anEntry) const = 0;
 
-    //virtual Node<ItemType>* containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const = 0;
+    virtual bool containsRecursive(const ItemType& anEntry) const = 0;
 
     /** Destroys this list and frees its assigned memory. */
     virtual ~ListInterface() { }

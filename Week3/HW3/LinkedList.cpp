@@ -10,97 +10,100 @@ using namespace std;
 
 
 template<class ItemType>
-LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0)
-{
+LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0) {
 } // end default constructor
 
 template<class ItemType>
-LinkedList<ItemType>& LinkedList<ItemType>::operator=(const LinkedList<ItemType> &aList)
-{
-    itemCount = aList->itemCount;
-    Node<ItemType>* origChainPtr = aList->headPtr;
+LinkedList<ItemType>::LinkedList(const LinkedList<ItemType> &aList) {
+    this();
+    Node<ItemType> *current = aList.headPtr;
 
-    if (origChainPtr == nullptr)
-    {
-        headPtr = nullptr ; // Original bag is empty; so is copy
+    while (current != nullptr) {
+        this->append(current->getItem());
+        current = current->getNext();
     }
-    else
-    {
+
+} // This is the copy constructor definition.
+
+
+template<class ItemType>
+LinkedList<ItemType> &LinkedList<ItemType>::operator=(LinkedList<char> *aList) {
+    itemCount = aList->itemCount;
+    Node<ItemType> *origChainPtr = aList->headPtr;
+
+    if (origChainPtr == nullptr) {
+        headPtr = nullptr; // Original bag is empty; so is copy
+    } else {
         // Copy first node
         headPtr = new Node<ItemType>();
-        headPtr->setItem(origChainPtr ->getItem());
+        headPtr->setItem(origChainPtr->getItem());
         // Copy remaining nodes
-        Node<ItemType>* newChainPtr = headPtr; // Last-node pointer
+        Node<ItemType> *newChainPtr = headPtr; // Last-node pointer
 
-        while (origChainPtr != nullptr )
-        {
-            origChainPtr = origChainPtr ->getNext(); // Advance pointer
+        while (origChainPtr != nullptr) {
+            origChainPtr = origChainPtr->getNext(); // Advance pointer
             // Get next item from original chain
             ItemType nextItem = origChainPtr->getItem();
             // Create a new node containing the next item
-            Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+            Node<ItemType> *newNodePtr = new Node<ItemType>(nextItem);
             // Link new node to end of new chain
             newChainPtr->setNext(newNodePtr);
             // Advance pointer to new last node
             newChainPtr = newChainPtr->getNext();
         } // end while
-        newChainPtr->setNext( nullptr ); // Flag end of new chain
+        newChainPtr->setNext(nullptr); // Flag end of new chain
     } // end if
 } // end Copy constructor implementation
 
 template<class ItemType>
-void LinkedList<ItemType>::clear()
-{
+void LinkedList<ItemType>::clear() {
     while (!isEmpty())
         remove(1);
 } // end clear
 
 template<class ItemType>
-LinkedList<ItemType>::~LinkedList()
-{
+void LinkedList<ItemType>::append(const ItemType &newEntry) {
+    insert(this->getLength()+1, newEntry);
+} // end append
+
+template<class ItemType>
+LinkedList<ItemType>::~LinkedList() {
     clear();
 } // end destructor
 
 template<class ItemType>
-bool LinkedList<ItemType>::isEmpty() const
-{
+bool LinkedList<ItemType>::isEmpty() const {
     return itemCount == 0;
 }  // end isEmpty
 
 template<class ItemType>
-int LinkedList<ItemType>::getLength() const
-{
+int LinkedList<ItemType>::getLength() const {
     return itemCount;
 }  // end getLength
 
 template<class ItemType>
-ItemType LinkedList<ItemType>::getEntry(int position) const
-{
+ItemType LinkedList<ItemType>::getEntry(int position) const {
     // Enforce precondition
     bool ableToGet = (position >= 1) && (position <= itemCount);
-    if (ableToGet)
-    {
-        Node<ItemType>* nodePtr = getNodeAt(position);
+    if (ableToGet) {
+        Node<ItemType> *nodePtr = getNodeAt(position);
         return nodePtr->getItem();
-    }
-    else
-    {
+    } else {
         std::string message = "getEntry() called with an empty list or ";
         message = message + "invalid position.";
-        throw(std::invalid_argument(message));
+        throw (std::invalid_argument(message));
     } // end if
 } // end getEntry
 
 // Returns either a pointer to the node containing a given entry
 // or the null pointer if the entry is not in the bag.
 template<class ItemType>
-Node<ItemType>* LinkedList<ItemType>::getNodeAt(int position) const
-{
+Node<ItemType> *LinkedList<ItemType>::getNodeAt(int position) const {
     // Debugging check of precondition
-    assert( (position >= 1) && (position <= itemCount) );
+    assert((position >= 1) && (position <= itemCount));
 
     // Count from the beginning of the chain
-    Node<ItemType>* curPtr = headPtr;
+    Node<ItemType> *curPtr = headPtr;
     for (int skip = 1; skip < position; skip++)
         curPtr = curPtr->getNext();
 
@@ -108,24 +111,19 @@ Node<ItemType>* LinkedList<ItemType>::getNodeAt(int position) const
 }  // end getNodeAt
 
 template<class ItemType>
-bool LinkedList<ItemType>::insert(int newPosition, const ItemType& newEntry)
-{
+bool LinkedList<ItemType>::insert(int newPosition, const ItemType &newEntry) {
     bool ableToInsert = (newPosition >= 1) && (newPosition <= itemCount + 1);
-    if (ableToInsert)
-    {
+    if (ableToInsert) {
         // Create a new node containing the new entry
-        Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+        Node<ItemType> *newNodePtr = new Node<ItemType>(newEntry);
         // Attach new node to chain
-        if (newPosition == 1)
-        {
+        if (newPosition == 1) {
             // Insert new node at beginning of chain
             newNodePtr->setNext(headPtr);
             headPtr = newNodePtr;
-        }
-        else
-        {
+        } else {
             // Find node that will be before new node
-            Node<ItemType>* prevPtr = getNodeAt(newPosition - 1);
+            Node<ItemType> *prevPtr = getNodeAt(newPosition - 1);
 
             // Insert new node after node to which prevPtr points
             newNodePtr->setNext(prevPtr->getNext());
@@ -139,22 +137,17 @@ bool LinkedList<ItemType>::insert(int newPosition, const ItemType& newEntry)
 }  // end insert
 
 template<class ItemType>
-bool LinkedList<ItemType>::remove(int position)
-{
+bool LinkedList<ItemType>::remove(int position) {
     bool ableToRemove = (position >= 1) && (position <= itemCount);
-    if (ableToRemove)
-    {
-        Node<ItemType>* curPtr = nullptr;
-        if (position == 1)
-        {
+    if (ableToRemove) {
+        Node<ItemType> *curPtr = nullptr;
+        if (position == 1) {
             // Remove the first node in the chain
             curPtr = headPtr; // Save pointer to node
             headPtr = headPtr->getNext();
-        }
-        else
-        {
+        } else {
             // Find node that is before the one to remove
-            Node<ItemType>* prevPtr = getNodeAt(position - 1);
+            Node<ItemType> *prevPtr = getNodeAt(position - 1);
 
             // Point to node to remove
             curPtr = prevPtr->getNext();
@@ -175,27 +168,22 @@ bool LinkedList<ItemType>::remove(int position)
 } // end remove
 
 
- template<class ItemType>
-ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry)
-{
+template<class ItemType>
+ItemType LinkedList<ItemType>::replace(int position, const ItemType &newEntry) {
     // Enforce precondition
     bool ableToSet = (position >= 1) && (position <= itemCount);
-    if (ableToSet)
-    {
-        Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+    if (ableToSet) {
+        Node<ItemType> *newNodePtr = new Node<ItemType>(newEntry);
 
-        Node<ItemType>* curPtr = nullptr;
-        if (position == 1)
-        {
+        Node<ItemType> *curPtr = nullptr;
+        if (position == 1) {
             // Replace the first node in the chain
             curPtr = headPtr; // Save pointer to node
             headPtr = newNodePtr;
             newNodePtr->setNext(curPtr->getNext());
-        }
-        else
-        {
+        } else {
             // Find node that is before the one to remove
-            Node<ItemType>* prevPtr = getNodeAt(position - 1);
+            Node<ItemType> *prevPtr = getNodeAt(position - 1);
 
             // Point to node to replace
             curPtr = prevPtr->getNext();
@@ -210,26 +198,21 @@ ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry)
         delete curPtr;
         curPtr = nullptr;
         return ret;
-    }
-    else
-    {
+    } else {
         std::string message = "replace() called with an empty list or ";
         message = message + "invalid position.";
-        throw(std::invalid_argument(message));
+        throw (std::invalid_argument(message));
     } // end if
 }  // end replace
 
-template <class ItemType>
-int LinkedList<ItemType>::getFrequencyOf(const ItemType& anEntry) const
-{
+template<class ItemType>
+int LinkedList<ItemType>::getFrequencyOf(const ItemType &anEntry) const {
     int frequency = 0;
     int counter = 0;
-    Node<ItemType>* curPtr = headPtr;
+    Node<ItemType> *curPtr = headPtr;
 
-    while((curPtr != nullptr) && (counter < itemCount))
-    {
-        if(anEntry == curPtr->getItem())
-        {
+    while ((curPtr != nullptr) && (counter < itemCount)) {
+        if (anEntry == curPtr->getItem()) {
             frequency++;
         }
         counter++;
@@ -238,27 +221,27 @@ int LinkedList<ItemType>::getFrequencyOf(const ItemType& anEntry) const
     return frequency;
 }
 
-template <class ItemType>
-bool LinkedList<ItemType>::contains(const ItemType& anEntry) const
-{
+template<class ItemType>
+bool LinkedList<ItemType>::contains(const ItemType &anEntry) const {
     bool listContains = getFrequencyOf(anEntry) > 0;
     return listContains;
 } // end contains
 
-/*template<class ItemType>
-Node<ItemType>* LinkedList<ItemType>::containsRecursive(const ItemType& anEntry, Node<ItemType>* curPtr) const
-{
-    // TODO: LinkedList<ItemType>>::containsRecursive
-    Node<ItemType>* result = nullptr;
-    if (curPtr != nullptr){
-        if(anEntry == curPtr->getItem()){
-            result = curPtr;
-        } else{
-            result = containsRecursive(anEntry, curPtr->getNext());
+
+template<class ItemType>
+bool LinkedList<ItemType>::containsRecursive(const ItemType &anEntry) const {
+    return containsRecursive_(anEntry, headPtr);
+}
+
+template<class ItemType>
+bool LinkedList<ItemType>::containsRecursive_(const ItemType &anEntry, Node<ItemType> *curPtr) const {
+    if (curPtr != nullptr) {
+        if (anEntry == curPtr->getItem()) {
+            return true;
+        } else {
+            return containsRecursive_(anEntry, curPtr->getNext());
         }
     }
-    return result;
-    //bool listContains = getFrequencyOf(anEntry) > 0;
-    //return listContains;
+
+    return false;
 }
- */

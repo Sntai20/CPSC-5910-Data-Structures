@@ -48,18 +48,6 @@ void linkedListTester(LinkedList<std::string>* listPtr)
     }  // end for
     cout << "\n" << endl;
 
-    // Replace method
-    string removed = listPtr->replace(3, "foobar");
-    cout << "replace(\"3\", \"foobar\"): Replaced position 3 which had " << removed << " with "
-         << listPtr->getEntry(3) << endl;
-
-    // getLength method
-    cout << "getLength: returns: " << listPtr->getLength() << " should be 6" << endl;
-
-    // getFrequencyOf method
-    cout << "getFrequencyOf(\"six\"): returns " <<
-         listPtr->getFrequencyOf("six") << " should be 1" << endl;
-
     // TODO: Test LinkedList.contains() here
     // Contains method true
     cout << "contains(\"six\"): returns " <<
@@ -71,8 +59,12 @@ void linkedListTester(LinkedList<std::string>* listPtr)
 
     // TODO: Test LinkedList.containsRecursive() here
     // ContainsRecursive method
-    //cout << "containsRecursive(\"one\"): returns " <<
-    //listPtr->containsRecursive("one", listPtr) << " should be 1 (true)" << endl;
+    cout << "containsRecursive(\"six\"): returns " <<
+         listPtr->containsRecursive("six") << " should be 1 (true)" << endl;
+
+    // Contains method false
+    cout << "containsRecursive(\"seven\"): returns " <<
+         listPtr->containsRecursive("seven") << " should be 0 (false)\n" << endl;
 
     // clear method
     cout << "clear(): should clear the list" << endl;
