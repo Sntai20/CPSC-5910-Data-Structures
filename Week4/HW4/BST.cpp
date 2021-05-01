@@ -1,3 +1,6 @@
+//
+// Created by Antonio Santana on 5/3/21.
+//
 #include "BST.h"
 #include <iostream>
 #include <vector>
@@ -49,7 +52,7 @@ void BST::insert(Node *& ptr, Node *& newNode) {
 		insert(ptr->left, newNode);
 	else
 		insert(ptr->right, newNode);
-} 
+}
 
 void BST::remove(int item) {
 	remove(root, item);
