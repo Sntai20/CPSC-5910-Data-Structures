@@ -1,58 +1,7 @@
 //
-// Created by Antonio Santana on 5/3/21.
-//
-/** Interface for the binary search tree.
- * @file BST.h
- */
-
-#ifndef BST_H_
-#define BST_H_
-
-#include <vector>
-
-using namespace std;
-
-template<typename ItemType>
-class BST {
-
-public:
-	BST();
-	~BST();
-	bool contains(ItemType);
-	void insert(ItemType);
-	void remove(ItemType);
-
-	// TODO: update traversals to avoid printing in class!
-	void displayPreOrder();
-	void displayInOrder();
-	void displayPostOrder();
-
-	void dumpInOrder(std::vector<ItemType>& dest);
-
-private:
-	struct Node {
-		ItemType data;
-		Node * left;
-		Node * right;
-	};
-	Node * root;
-	
-	void displayPreOrder(Node *);
-	void displayInOrder(Node *);
-	void displayPostOrder(Node *);
-	void insert(Node *&, Node *&);
-	void remove(Node *&, ItemType);
-	void makeDeletion(Node *&);
-	void destroyTree(Node *&);
-
-	void dumpInOrderHelper(Node * root, std::vector<ItemType>& dest);
-};
-
-//#include "BST.cpp"
-
-//
 // Created by Antonio Santana on 5/1/21.
 //
+
 #include "BST.h"
 #include <iostream>
 #include <vector>
@@ -159,7 +108,7 @@ void BST<ItemType>::displayPreOrder() {
 template<typename ItemType>
 void BST<ItemType>::displayPreOrder(Node * ptr) {
     if (ptr != nullptr) {
-        cout << ptr->data << endl;
+        //cout << ptr->data << endl;
         displayPreOrder(ptr->left);
         displayPreOrder(ptr->right);
     }
@@ -182,65 +131,4 @@ void BST<ItemType>::dumpInOrder(std::vector<ItemType>& dest) {
 }
 
 // TODO: try to write displayInOrder and displayPostOrder
-template<typename ItemType>
-void BST<ItemType>::displayInOrder() {
-    displayInOrder(root);
-}
-
-template<typename ItemType>
-void BST<ItemType>::displayInOrder(Node * ptr) {
-    if (ptr != nullptr) {
-        cout << ptr->data << endl;
-        displayInOrder(ptr->left);
-        displayInOrder(ptr->right);
-    }
-}
-
-template<typename ItemType>
-void BST<ItemType>::displayPostOrder() {
-    displayPostOrder(root);
-}
-
-template<typename ItemType>
-void BST<ItemType>::displayPostOrder(Node * ptr) {
-    if (ptr != nullptr) {
-        cout << ptr->data << endl;
-        displayPostOrder(ptr->right);
-        displayPostOrder(ptr->left);
-    }
-}
-
-
-
-
-
-
-
-
-
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

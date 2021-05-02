@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void bstTester(BST* bst)
+void bstTester(BST<int>* bst)
 {
     // Insert method
     cout << "\nInsert method" << endl;
@@ -25,11 +25,11 @@ void bstTester(BST* bst)
 
     // InOrder method
     cout << "\nImplement displayInOrder" << endl;
-    //bst->displayInOrder();
+    bst->displayInOrder();
 
     // PostOrder method
     cout << "Implement displayPostOrder" << endl;
-    //bst->displayPostOrder();
+    bst->displayPostOrder();
 
     // Contains Method
     cout << "\nContains method" << endl;
@@ -62,7 +62,7 @@ void bstTester(BST* bst)
     // Sort a file. Recall if you're running this inside CLion then you need to mind the working directory.
     cout << "\nSort the file" << endl;
     std::vector<int> data;
-    BST sortingTree;
+    BST<int> sortingTree;
 
     // Read the unsorted file containing integers.
     std::ifstream unsortedFile;
@@ -105,7 +105,7 @@ void bstTester(BST* bst)
 } // end bstTester
 
 int main() {
-    BST*  bst = new BST();
+    BST<int>*  bst = new BST<int>();
     cout << "Please provide the filenames: " << endl;
 
     cout << "Testing the BST Interface: \n" << endl;
