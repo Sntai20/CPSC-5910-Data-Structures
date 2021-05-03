@@ -1,10 +1,10 @@
 //
 // Created by Antonio Santana on 5/3/21.
 //
+#include "BST.h"
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "BST.h"
 
 using namespace std;
 
@@ -32,9 +32,24 @@ void bstTester(BST<int>* bst)
     bst->displayPostOrder();
 
     // Contains Method
-    cout << "\nContains method" << endl;
-    cout << "bst.contains(10) returns " << bst->contains(10)
+    cout << "\nContains method\n" << "bst.contains(10) returns " << bst->contains(10)
               << "; should be 1 (true)" << std::endl;
+
+    // empty method
+    cout << "\nempty method\n" << "bst->empty() returns " << bst->empty()
+         << "; should be 0 (false)" << endl;
+
+    // treeSize method
+    cout << "\ntreeSize method\n" << "bst->treeSize() returns " << bst->treeSize()
+         << "; should be 0 (root)" << endl;
+
+    // getLeafCount method
+    cout << "\ngetLeafCount method\n" << "bst->getLeafCount() returns " << bst->getLeafCount()
+         << "; should be 0 (root)" << endl;
+
+    // getHeight method
+    cout << "\ngetHeight method\n" << "bst->getHeight() returns " << bst->getHeight()
+            << "; should be 0 (root)" << endl;
 
     // getLevel method
     cout << "\nImplement getLevel method" << endl;
@@ -42,7 +57,7 @@ void bstTester(BST<int>* bst)
     cout << "Implement getAncestors method" << endl;
 
 
-    // Try some removes.
+    // remove method
     cout << "\nRemove method" << endl;
     bst->remove(3);
     cout << "Removed 3" << endl;
@@ -54,7 +69,7 @@ void bstTester(BST<int>* bst)
     bst->displayPreOrder();
 
 
-    cout << "\nValidate size and return values" << endl;
+    cout << "\nValidate treeSize and return values" << endl;
     cout << "Validate empty and return values" << endl;
     cout << "Validate getHeight and return values" << endl;
     cout << "Validate getLeafCount and return values" << endl;
