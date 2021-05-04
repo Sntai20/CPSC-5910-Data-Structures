@@ -9,6 +9,7 @@
 #define BST_H_
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -18,12 +19,9 @@ class BST
 
 public:
 	BST(); // Default constructor, constructs an empty binary search tree.
-	/* TODO: Create a copy of the BST passed in as a parameter.
-	 * BST();*/
-
-	/* TODO: Overloaded assignment operator
-	 * Assigns the BST passed in as a parameter to an existing BST.
-	 * BST(); */
+	BST(const BST& copyTree); // Create a copy of the BST passed in as a parameter.
+    // Overloaded assignment operator. Assigns the BST passed in as a parameter to an existing BST.
+    BST<ItemType>& operator = (const BST<ItemType>& tree);
 	~BST();
 	/* Searches the BST to determine if a given value is present.
 	 * Returns true if so, else false. Must use recursion. */
@@ -47,9 +45,15 @@ public:
 
     int getLeafCount();
 
-    int treeSize();
+    int size();
 
     bool empty();
+
+    int getLevel(ItemType);
+    std::string getAncestors(ItemType);
+    string PreOrderTraversal();
+    string InOrderTraversal();
+    string PostOrderTraversal();
 
 private:
 	struct Node {
@@ -68,6 +72,15 @@ private:
 	void destroyTree(Node *&);
 
 	void dumpInOrderHelper(Node * root, std::vector<ItemType>& dest);
+    int getLeafCountHelper(Node *&);
+    int sizeHelper(Node *&);
+    // Returns the level of a node in the BST. If the node with the given value is not present in the BST, returns -1.
+    int getHeightHelper(Node *&);
+    int getLevelHelper(Node *&, ItemType, int);
+    std::string getAncestorsHelper(Node *&, ItemType);
+    void PreOrderTraversal(Node *&,stringstream& ss);
+    void InOrderTraversal(Node *&, stringstream& ss);
+    void PostOrderTraversal(Node *&, stringstream& ss);
 }; // end BST.h
 
 #include "BST.cpp"

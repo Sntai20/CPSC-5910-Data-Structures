@@ -3,6 +3,8 @@
 //
 #include "BST.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 //#include <vector>
 
 using namespace std;
@@ -159,22 +161,176 @@ void BST<ItemType>::displayPostOrder(Node * ptr) {
 }
 
 template<class ItemType>
+string BST<ItemType>::PreOrderTraversal(){
+    stringstream ss;
+    PreOrderTraversal(root, ss);
+    string s = ss.str();
+    s.pop_back();
+    return s;
+}
+
+template<class ItemType>
+void BST<ItemType>::PreOrderTraversal(Node *& ptr, stringstream &ss) {
+    if (ptr != nullptr) {
+        ss << ptr->data << " ";
+        PreOrderTraversal(ptr->left, ss);
+        PreOrderTraversal(ptr->right, ss);
+    }
+}
+
+template<class ItemType>
+string BST<ItemType>::InOrderTraversal() {
+    stringstream ss;
+    InOrderTraversal(root, ss);
+    string s = ss.str();
+    s.pop_back();
+    return s;
+}
+
+
+template<class ItemType>
+void BST<ItemType>::InOrderTraversal(Node *& ptr, stringstream& ss) {
+    if (ptr != nullptr) {
+        InOrderTraversal(ptr->left, ss);
+        ss << ptr->data << " ";
+        InOrderTraversal(ptr->right, ss);
+    }
+}
+
+template<class ItemType>
+string BST<ItemType>::PostOrderTraversal() {
+    stringstream ss;
+    PostOrderTraversal(root, ss);
+    string s = ss.str();
+    s.pop_back();
+    return s;
+}
+
+template<class ItemType>
+void BST<ItemType>::PostOrderTraversal(Node *& ptr, stringstream& ss) {
+    if (ptr != nullptr) {
+        PostOrderTraversal(ptr->left, ss);
+        PostOrderTraversal(ptr->right, ss);
+        ss << ptr->data << " ";
+    }
+}
+
+template<class ItemType>
 int BST<ItemType>::getHeight() {
-    return 0;
+    return getHeightHelper(root);
+}
+
+template<class ItemType>
+int BST<ItemType>::getHeightHelper(Node *& ptr) {
+    if (ptr == nullptr) {
+        return 0;
+    }
+    else{
+        return 1 + max(getHeightHelper(ptr->left), getHeightHelper(ptr->right));
+    }
+}
+
+template<class ItemType>
+int BST<ItemType>::getLevel(ItemType newEntry) {
+    return getLevelHelper(root, newEntry, 0);
+}
+
+template<class ItemType>
+int BST<ItemType>::getLevelHelper(Node *& ptr, ItemType newEntry, int level) {
+    if (ptr == nullptr){
+        return -1;
+    }
+    if (ptr->data == newEntry){
+        return level;
+    }
+
+    int minusLevel = getLevelHelper(ptr->left, newEntry, level + 1);
+
+    if (minusLevel != -1){
+        return minusLevel;
+    }
+
+    minusLevel = getLevelHelper(ptr->right, newEntry, level + 1);
+
+    return minusLevel;
 }
 
 template<class ItemType>
 int BST<ItemType>::getLeafCount() {
-    return 0;
+    return getLeafCountHelper(root);
 }
 
 template<class ItemType>
-int BST<ItemType>::treeSize() {
-    return 0;
+int BST<ItemType>::size() {
+    return sizeHelper(root);
 }
+
+template<class ItemType>
+int BST<ItemType>::sizeHelper(Node *& ptr) {
+    int count = 1;
+    if (ptr == nullptr){
+        return 0;
+    }
+    else{
+        count += sizeHelper(ptr->left);
+        count += sizeHelper(ptr->right);
+        return count;
+    }
+}
+
 
 template<class ItemType>
 bool BST<ItemType>::empty() {
     return false;
 }
+
+template<class ItemType>
+std::string BST<ItemType>::getAncestors(ItemType item) {
+    return getAncestorsHelper(root, item);
+}
+template<class ItemType>
+std::string BST<ItemType>::getAncestorsHelper(Node *& ptr, ItemType item) {
+    std::string emptyData = " ";
+    std::string newData;
+    std::stringstream ss;
+
+    if (contains(item)){
+        if (ptr->data > item){
+            if ((ptr->data) == item) {
+                return emptyData;
+            }
+            ss << ptr->data;
+            ss >> newData;
+            emptyData += newData;
+            return getAncestorsHelper(ptr->left, item) + emptyData + " ";
+        }
+        else{
+            if ((ptr->data) == item) {
+                return emptyData;
+            }
+            ss << ptr->data;
+            ss >> newData;
+            emptyData += newData;
+            return getAncestorsHelper(ptr->right, item) + emptyData + " ";
+        }
+    }
+    return NULL;
+}
+
+template<class ItemType>
+int BST<ItemType>::getLeafCountHelper(Node *& ptr) {
+    if (ptr == nullptr){
+        return 0;
+    }
+    if (ptr->left == nullptr && ptr->right == nullptr){
+        return 1;
+    }
+    else{
+        return getLeafCountHelper(ptr->left) + getLeafCountHelper(ptr->right);
+    }
+}
+
+
+
+
 
