@@ -20,16 +20,16 @@ void hydraTester()
     string startingString;
     cin >> startingString;
 
-    hydra->insert(1, startingString);
+    hydra->insert(1, startingString); // O(n)
     int count = 0;
 
     cout << "How fast can the Hero defeat the Hydra monster: "
-                    << hydra->getEntry(1) << "?" << endl;
+                    << hydra->getEntry(1) << "?" << endl; // O(n)
 
     while (!(hydra->isEmpty()))
     {
-        string hydraHeads = hydra->getEntry(1);
-        hydra->remove(1);
+        string hydraHeads = hydra->getEntry(1); // O(n)
+        hydra->remove(1); // O(n)
 
         cout <<  hydraHeads;
         count ++;
@@ -39,14 +39,14 @@ void hydraTester()
             hydra->insert(1, smallerHydraHead);
             hydra->insert(1, smallerHydraHead);
         }
-    }
+    } // O(n)
 
     cout << "\nTo defeat the Hydra Monster, the hero cut off " << count << " heads " ;
 }
 
 int main() {
     cout << "Hydra tester" << std::endl << "============" << std::endl;
-    Timer hydraTimer ("hyrdaTimer");
+    Timer hydraTimer ("hydraTimer");
     hydraTester();
 
     return 0;
