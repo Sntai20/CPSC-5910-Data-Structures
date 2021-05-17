@@ -1,25 +1,22 @@
-//
-// Created by Antonio Santana on 4/18/21.
-//
-#include <iostream>
-#include <vector>
-using namespace std;
-
 /*
+ * Created by Antonio Santana on 5/17/21.
+ *
  * Problem 2: Reverse vector
  * Write a program that recursively reverses a C++ vector (#include <vector>) of any data type and in-place.
  * ("In place" means that the positions of the elements in the original vector passed to the function are modified.)
-
-Demonstrate your program on:
-A vector of int
-A vector of std::string
+ *
+ * Demonstrate your program on:
+ * A vector of int
+ * A vector of std::string
  */
+#include <iostream>
+#include <vector>
+using namespace std;
 
 template<typename T>
 void reverseVector( T &InputVector, int startIndex, int endIndex);
 template<typename T>
 void reverseVectorS( T (&InputVector), int startIndex, int endIndex);
-
 template<typename T>
 void printVector(T const (&InputVector));
 
@@ -77,4 +74,3 @@ void printVector(T const (&InputVector))
     }
     cout << endl;
 }
-

@@ -1,13 +1,14 @@
-//
-// Created by Antonio Santana on 4/18/21.
-//
+/*
+ * Created by Antonio Santana on 5/17/21.
+ *
+ * Problem 4: Coins
+ * Prints total weight in pounds of all the coins used by all the possible combinations
+ * of 1, 5, 10, 25, 50 cent coins to make $1
+ */
 #include <iostream>
 #include <vector>
 
 using namespace std;
-
-// Prints total weight in pounds of all the coins used by all the possible combinations
-// of 1, 5, 10, 25, 50 cent coins to make $1
 
 int coinValues[] = {50, 25, 10, 5, 1};
 double weights[] = {11.340, 5.670, 2.268, 5.000, 2.500};
@@ -19,12 +20,12 @@ int main() {
     vector<vector<int>> solutions;
 
     int maxHalves = target / coinValues[0];
-    std::cout << "Max Halves: " << maxHalves << std::endl;
+    cout << "Max Halves: " << maxHalves << endl;
 
     for (int h = 0; h <= maxHalves; h++)
     {
         int q_remaining = target - (h * coinValues[0]);
-        std::cout << "q_remain: " << q_remaining << std::endl;
+        cout << "q_remain: " << q_remaining << endl;
 
         if (q_remaining < 0)
         {
@@ -72,7 +73,7 @@ int main() {
         }
     }
 
-    std::cout << "Solution Count: " << solutions.size() << std::endl;
+    cout << "Solution Count: " << solutions.size() << endl;
 
     double grams = 0;
 
@@ -85,9 +86,8 @@ int main() {
 
     double pounds = grams / 453.592;
 
-    std::cout << "Grams: " << grams << std::endl;
-    std::cout << "Pounds: " << pounds << std::endl;
+    cout << "Grams: " << grams << endl;
+    cout << "Pounds: " << pounds << endl;
 
     return 0;
 }
-

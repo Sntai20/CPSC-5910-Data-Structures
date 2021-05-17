@@ -16,7 +16,8 @@ The user must specify the file path for the data file; however, you can use the 
 * Your program must use recursion to perform the palindrome test
 * Your program must not be case-sensitive to user input
 * Your program must ignore any whitespace that the user enters (but punctuation is considered)
-* You might want to consider methods such as tolower and isspace in the ```cctype>``` library (Links to an external site.)
+* You might want to consider methods such as tolower 
+* and isspace in the ```cctype>``` library (Links to an external site.)
 * You might want to consider adding a helper method to pre-process the string before starting the recursive test
 * You might want to consider adding a helper function with different parameters than the ones required above
   
@@ -36,9 +37,9 @@ Demonstrate your program on:
 The textbox discusses the Fibonacci sequence, as do many sources online. Write a program that:
 
 * Prints the Fibonacci sequence up to 45 using **a recursive implementation**.
-  * ```fibIterative``` function.
-* Prints the Fibonacci sequence up to 45 using **an iterative implementation**.
   * ```fibRecursive``` function.
+* Prints the Fibonacci sequence up to 45 using **an iterative implementation**.
+  * ```fibIterative``` function.
 * Times the execution of each of these in milliseconds.
   * Put the example timings in source code comments where indicated.
 
@@ -81,13 +82,13 @@ If you submit any additional files, including:
 
 If your code does not compile using the following command lines:
 
-```$ g++ palindrome.cpp -o HW1P1 -pedantic -Wall -Werror -std=c++11```
+```$ g++ palindrome.cpp -o HW2P1 -pedantic -Wall -Werror -std=c++11```
 
-```$ g++ reversevec.cpp -o HW1P2 -pedantic -Wall -Werror -std=c++11```
+```$ g++ reversevec.cpp -o HW2P2 -pedantic -Wall -Werror -std=c++11```
 
-```$ g++ fib.cpp -o HW1P3 -pedantic -Wall -Werror -std=c++11```
+```$ g++ fib.cpp -o HW2P3 -pedantic -Wall -Werror -std=c++11```
 
-```$ g++ coinchange.cpp -o HW1P4 -pedantic -Wall -Werror -std=c++11```
+```$ g++ coinchange.cpp -o HW2P4 -pedantic -Wall -Werror -std=c++11```
 
 you *will* lose points, up to and including receiving a 0 on the assignment.
 
