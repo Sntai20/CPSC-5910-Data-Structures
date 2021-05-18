@@ -15,7 +15,7 @@ double weights[] = {11.340, 5.670, 2.268, 5.000, 2.500};
 
 int main() {
 
-    int target = 100;
+    const int target = 100;
 
     vector<vector<int>> solutions;
 

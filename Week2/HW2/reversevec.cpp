@@ -7,70 +7,59 @@
  *
  * Demonstrate your program on:
  * A vector of int
- * A vector of std::string
+ * A vector of string
+ *
+ * Function to print the vector.
+ * The reverseVector accepts a vector of any type and the size of the vector and reverses the vector in place.
+ * Pass vector by reference to reduce the consumption on the stack and pass startIndex by value.
  */
 #include <iostream>
 #include <vector>
 using namespace std;
 
-template<typename T>
-void reverseVector( T &InputVector, int startIndex, int endIndex);
-template<typename T>
-void reverseVectorS( T (&InputVector), int startIndex, int endIndex);
-template<typename T>
-void printVector(T const (&InputVector));
+template <typename T>
+void printVector (vector<T> InputVector, int size);
+
+template <typename T>
+void reverseVector (vector<T> &v, int startIndex, int endIndex);
 
 int main() {
     // TEST AN ARRAY OF INTS
     vector<int> numbers {1, 5, 6, 7, 10};
-    // TODO
-    printVector(numbers);
-    reverseVector(numbers, 0, numbers.size());
-    printVector(numbers);
+    int startIndexI = 0;
+    int endIndexI = numbers.size() - 1;
+    reverseVector(numbers, startIndexI, endIndexI);
+    printVector (numbers, numbers.size());
 
     // TEST AN ARRAY OF STRINGS
     vector<string> strings {"cat", "dog", "bird", "cow", "frog", "horse"};
-    // TODO
-    printVector(strings);
-    reverseVectorS(strings, 0, strings.size());
-    printVector(strings);
-
+    int startIndexS = 0;
+    int endIndexS = strings.size() - 1;
+    reverseVector(strings, startIndexS, endIndexS);
+    printVector (strings, strings.size());
     return 0;
 }
 
-// Pass vector by reference to reduce the consumption on the stack.
-// Pass startIndex by value.
-template<typename T>
-void reverseVector( T (&InputVector), int startIndex, int endIndex)
+template <typename T>
+void printVector (vector<T> InputVector, int size)
 {
-    int temp;
-    if (startIndex <= endIndex){
-        temp = InputVector[endIndex - 1];
-        InputVector[endIndex-1] = InputVector[startIndex];
-        InputVector[startIndex] = temp;
-        reverseVector(InputVector, startIndex + 1, endIndex -1);
+
+    for (int i = 0; i < size; i++) {
+        cout << InputVector[i] << " ";
     }
+    cout << "\n";
 }
 
-template<typename T>
-void reverseVectorS( T (&InputVector), int startIndex, int endIndex)
+template <typename T>
+void reverseVector (vector<T> &v, int startIndex, int endIndex)
 {
-    string temp;
-    if (startIndex <= endIndex){
-        temp = InputVector[endIndex - 1];
-        InputVector[endIndex-1] = InputVector[startIndex];
-        InputVector[startIndex] = temp;
-        reverseVectorS(InputVector, startIndex + 1, endIndex -1);
+    if (endIndex <= startIndex){
+        return;
+    } else {
+        T temp;
+        temp = v[startIndex];
+        v[startIndex] = v[endIndex];
+        v[endIndex] = temp;
+        reverseVector(v, startIndex + 1, endIndex - 1);
     }
-}
-
-template<typename T>
-void printVector(T const (&InputVector))
-{
-    int n = InputVector.size();
-    for ( int i = 0 ; i < n ; i++ )
-    {
-        std::cout << InputVector[i] << ' ';
-    }
-    cout << endl;
 }
