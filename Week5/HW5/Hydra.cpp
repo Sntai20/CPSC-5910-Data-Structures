@@ -64,10 +64,54 @@ void hydraTester()
     cout << "\nTo defeat the Hydra Monster, the hero cut off " << count << " heads " ;
 }
 
+// question 2
+
+bool hasEvens(int nums[], int size)
+{
+    for (auto i : nums)
+    {
+        if (i == 0)
+            return 1;
+        else if (i == 1)
+            return 0;
+        else if (i < 0)
+            return hasEvens(-i);
+        else return hasEvens(i - 2);
+    }
+}
+
+int sum(LinkedList *list)
+{
+    assert(list!=NULL);
+    Node *currentNode = list->head;
+    int sum = 0;
+    for (currentNode = currentNode->next ; currentNode !=NULL ; currentNode = currentNode -> next)
+    {
+        sum = sum + currentNode->data;
+    }
+    return sum;
+}
+
+
+int secretRecursion(int a, int b) {
+    if (b <= 0) {
+        return 0;
+    }
+    int c = secretRecursion(a, b-1);
+    if (a % b == 0) {
+        c += b;
+    }
+    return c;
+}
+
+
 int main() {
-    cout << "Hydra tester" << std::endl << "============" << std::endl;
-    Timer hydraTimer ("hydraTimer");
-    hydraTester();
+    //cout << "Hydra tester" << std::endl << "============" << std::endl;
+    //Timer hydraTimer ("hydraTimer");
+    //hydraTester();
+    secretRecursion(14,4);
+
+
 
     return 0;
 }
