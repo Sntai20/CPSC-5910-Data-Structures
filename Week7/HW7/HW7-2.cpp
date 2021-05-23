@@ -21,16 +21,31 @@
 #include <string>
 #include <cctype>
 #include <list>
+#include <vector>
 
 using namespace std;
 
-void hW7Tester();
+void hW7Tester(string userInput);
 bool fileExists(string userInput);
-list<string> preProcess(string &inputFilePath);
+//template<typename ItemType>
+//vector<ItemType> preProcess(string &inputFilePath);
+template<typename ItemType>
+list<ItemType> preProcess(string &inputFilePath);
 
 int main() {
-    cout << "HW7 tester" << std::endl << "============" << std::endl;
-    hW7Tester();
+    string userInput;
+
+    // Inform the user if the input was a palindrome
+    cout << "Please input a file path to a file containing integers:  ";
+    //cin >> userInput;
+    userInput = "testints.txt";
+
+    // Prompt the user to enter an integer k
+    cout << "Please enter an integer k:  ";
+
+    // Prints the k'th largest integer in the file.
+    cout << "HW7 tester" << endl << "============" << endl;
+    hW7Tester(userInput);
 
     return 0;
 }
@@ -43,52 +58,75 @@ bool fileExists(string userInput)
     else return false;
 }
 
-list<string> preProcess(string &inputFilePath)
-{
-    string line;
-    ifstream inputFile;
-    list<string> wordsList;
-    list<string>::iterator myPosition = wordsList.begin();
+//template<typename ItemType>
+//vector<int> preProcess(ItemType &inputFilePath)
+//{
+//    ifstream inputFile;
+//    int number;
+//    inputFile.open(inputFilePath);
+//    vector<int> numbers;
+//
+//    while(inputFile >> number)
+//    {
+//        numbers.push_back(number);
+////                cout << "Added " << number << " to number vector. " << endl;
+//    }
+//    inputFile.close();
+//    return numbers;
+//}
 
-    inputFile.open(inputFilePath);    // watch for the working directory when you run the project
-    if (inputFile.is_open())
+template<typename ItemType>
+list<int> preProcess(ItemType &inputFilePath)
+{
+    ifstream inputFile;
+    int number = 0;
+    inputFile.open(inputFilePath);
+    list<int> numbers;
+
+    while(inputFile >> number)
     {
-        while (getline(inputFile, line))
-        {
-            string word;
-            if (line.length() >= 1){
-                for (long unsigned int i = 0; i < line.length(); i++)
-                {
-                    char c = tolower(line[i]);
-                    if (isalpha(c) || isalnum(c))  word += c;
-                }
-                wordsList.insert(myPosition, word);
-            }
-        }
+        numbers.push_back(number);
     }
+
     inputFile.close();
-    return wordsList;
+    return numbers;
 }
 
-void hW7Tester() {
+void hW7Tester(string userInput) {
     bool foundException = false;
     try
     {
-        string userInput = "int.txt";
+        // Create a test file
+        srand(7);
+
+        const int RANGE = 1000;
+        const long SIZE = 10000;
+        int* data = new int[SIZE];
+        for (int i = 0; i < SIZE; i++)
+        {
+            data[i] = rand() % RANGE;
+        }
+
+        std::ofstream myfile;
+        myfile.open ("testints.txt");
+        for (int i = 0; i < SIZE; i++)
+        {
+            myfile << data[i] << endl;
+        }
+        myfile.close();
+
         string inputFilePath;
-
-        // Inform the user if the input was a palindrome
-        cout << "Please input a file path to a file containing integers: ";
-        cin >> userInput;
-
         if (fileExists(userInput) && userInput.length() >= 1)
         {
             inputFilePath = userInput;
-            list<string> wordsList = preProcess(inputFilePath);
-            for (auto word : wordsList)
-            {
-                cout << word;
 
+//            vector<int> numbers = preProcess(inputFilePath);
+            list<int> numbers = preProcess(inputFilePath);
+
+            numbers.sort();
+            for (auto num :  numbers)
+            {
+                cout << num << endl;
             }
             return;
         }
