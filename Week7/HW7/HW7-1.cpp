@@ -1,5 +1,5 @@
 /*
- * Created by Antonio Santana on 5/21/2021.
+ * Created by Antonio Santana on 5/24/2021.
  *
  * Problem 1: Write a program that: Prompts the user for a filename where the file contains integers,
  * one per line with some number of optional blank lines. Prompts the user to enter an integer k.
@@ -23,9 +23,11 @@ template <typename T>
 void display(vector<T> data);
 bool fileExists(string filePath);
 template<typename ItemType>
-vector<int> preProcess(string firstFileName);
-void merge (vector<int>& dataVector, vector<int>& left, vector<int>& right);
-void mergeSort (vector<int> &dataVector);
+vector<ItemType> preProcess(string firstFileName);
+template<typename ItemType>
+void merge (vector<ItemType>& dataVector, vector<ItemType>& left, vector<ItemType>& right);
+template<typename ItemType>
+void mergeSort (vector<ItemType> &dataVector);
 void displaykthLargestInteger(vector<int> &dataVector, int k);
 
 int main()
@@ -57,7 +59,8 @@ int main()
 }
 
 // To merge the two halves vector left and vector right of the vector dataVector.
-void merge (vector<int>& dataVector, vector<int>& left, vector<int>& right) {
+template <typename ItemType>
+void merge (vector<ItemType>& dataVector, vector<ItemType>& left, vector<ItemType>& right) {
     // Create iterators for input vectors
     vector<int>::iterator v = dataVector.begin();
     vector<int>::iterator l = left.begin();
@@ -90,7 +93,8 @@ void merge (vector<int>& dataVector, vector<int>& left, vector<int>& right) {
 }
 
 // Function to merge sort a vector of integers. Accepts a reference to the vector.
-void mergeSort (vector<int> &dataVector) {
+template <typename ItemType>
+void mergeSort (vector<ItemType> &dataVector) {
     if (dataVector.size() == 1) return;
     else {
 
@@ -143,7 +147,7 @@ bool fileExists(string filePath)
 }
 
 template<typename ItemType>
-vector<int> preProcess(string firstFileName)
+vector<ItemType> preProcess(string firstFileName)
 {
     // File open error check
     if (!fileExists(firstFileName))

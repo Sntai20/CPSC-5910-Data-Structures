@@ -1,5 +1,5 @@
 /*
- * Created by Antonio Santana on 5/21/2021.
+ * Created by Antonio Santana on 5/24/2021.
  *
  * Problem 2: Write a program that: Prompts the user to enter two filenames where the files both
  * contain either all-integers (one per line) or all-(non-integer)-strings (one per line). Detects
@@ -37,6 +37,63 @@ bool fileExists(string filePath)
     else return false;
 }
 
+template<class T>
+void merge(std::vector<T>& v, int p, int q, int r)
+{
+    int size1 = q-p+1;
+    int size2 = r-q;
+    std::vector<T> L(size1);
+    std::vector<T> R(size2);
+
+    for(int i = 0; i < size1; i++)
+    {
+        L[i] = v[p+i];
+    }
+    for(int j = 0; j < size2; j++)
+    {
+        R[j]=v[q+j+1];
+    }
+
+    int i=0,j=0;
+    int k;
+    for(k = p; k <= r && i < size1 && j < size2; k++)
+    {
+        if(L[i] <= R[j])
+        {
+            v[k] = L[i];
+            i++;
+        }
+        else
+        {
+            v[k] = R[j];
+            j++;
+        }
+    }
+    for(i = i; i < size1; ++i)
+    {
+        v[k] = L[i];
+        k++;
+    }
+
+    for(j = j; j < size2; j++)
+    {
+        v[k] = R[j];
+        k++;
+    }
+}
+
+template<class T>
+void merge_sort(std::vector<T>& v, int p, int r)
+{
+    if(p < r)
+    {
+        int q = (p+r)/2;
+        merge_sort(v, p, q);
+        merge_sort(v, q+1, r);
+        merge(v, p, q, r);
+    }
+}
+
 int main()
 {
     string firstFileName, secondFileName,data;
@@ -49,7 +106,11 @@ int main()
     secondFileName = "word.txt";
 
     // File open error check
-    if (!fileExists(firstFileName) || !fileExists(secondFileName))
+    if (!fileExists(firstFileName))
+    {
+        cout << "File not found\n";
+        exit(0);
+    } else if (!fileExists(secondFileName))
     {
         cout << "File not found\n";
         exit(0);
@@ -93,14 +154,20 @@ int main()
         secondFileStreamIn.close();
 
         // Display before insertionSort
-        cout << "Values before insertionSort:" << endl;
+        cout << "Values before Sort:" << endl;
         display(values);
 
         // Call insertionSort
-        insertionSort(values);
-
+//        insertionSort(values);
         // Display after insertionSort
-        cout << "\nValues after insertionSort:" << endl;
+        cout << "\nValues after Merge Sort:" << endl;
+        int vsz = values.size();
+        merge_sort(values, 0, vsz);
+        std::cout << "Entered values vector : ";
+        for(int n = 0; n < vsz; n++)
+        {
+            std::cout << values[n] <<" ";
+        }
         display(values);
     }
     //String data
@@ -111,19 +178,19 @@ int main()
         while (firstFileStreamIn >> data)
         {
             values.push_back(data);
-            cout << "Should be a string: " << data;
         }
         while (secondFileStreamIn >> data)
         {
             values.push_back(data);
-            cout << "Should be a string: " << data;
         }
 
         firstFileStreamIn.close();
         secondFileStreamIn.close();
         cout << "Values before insertionSort:" << endl;
         display(values);
-        insertionSort(values);
+//        insertionSort(values);
+        int stringsz = values.size();
+        merge_sort(values, 0, stringsz);
         cout << "\nValues after insertionSort:" << endl;
         display(values);
     }
