@@ -29,7 +29,7 @@ Your program should be fully contained in a file called HW7-2.cpp and compile wi
 Prompts the user to enter an integer n,
 Creates an array of random integers of size n where all values are between 1 and 1000 inclusive.
 Sort this array in O(n) time.
-Hint: Research "sort in linear time" or "sort in O(n) time" on the Internet.
+Hint: Research "insertionSort in linear time" or "insertionSort in O(n) time" on the Internet.
 Print the sorted array to the console.
 Your program should be fully contained in a file called HW7-3.cpp and compile with the standard command-line flags.
 Submission
