@@ -15,6 +15,8 @@
  * in a block comment in the source code that explains the runtime complexity of your
  * solution. It must be efficient to get full credit. Your program should be fully contained
  * in a file called HW7-2.cpp and compile with the standard command-line flags.
+ *
+ *
  */
 #include <iostream>
 #include<vector>
@@ -24,9 +26,6 @@
 
 using namespace std;
 
-//Function prototypes
-template <typename T>
-void insertionSort(vector<T>& data);
 template <typename T>
 void display(vector<T> data);
 template <typename ItemType>
@@ -44,9 +43,9 @@ int main()
 
     //Prompt for file names
     cout << "Enter file names with space: ";
-//    cin >> firstFileName >> secondFileName;
-    firstFileName = "int.txt";
-    secondFileName = "word.txt";
+    cin >> firstFileName >> secondFileName;
+//    firstFileName = "int.txt";
+//    secondFileName = "word.txt";
 
     // File open error check
     if (!fileExists(firstFileName))
@@ -61,7 +60,7 @@ int main()
     ifstream firstFileStreamIn(firstFileName);
     ifstream secondFileStreamIn(secondFileName);
 
-    //Check for integer
+    // Check for integer
     firstFileStreamIn >> data;
 //    secondFileStreamIn >> data;
     vector<int> values;
@@ -77,10 +76,9 @@ int main()
         }
     }
 
-    //If integer read into a int vector
+    // If integer read into a int vector
     if (isInt)
     {
-
         stringstream ss(data); // To grab the first value.
         ss >> number;
         values.push_back(number);
@@ -120,7 +118,8 @@ int main()
         firstFileStreamIn.close();
         secondFileStreamIn.close();
     }
-    // Display before nSort
+
+    // Display before Sort
     cout << "\nValues before Sort:" << endl;
     display(values);
     cout << endl;
@@ -136,9 +135,6 @@ int main()
 
     outputFile(values);
     outputFile(words);
-
-
-
     return 0;
 }
 
@@ -157,7 +153,7 @@ void outputFile(vector<ItemType> data)
 {
 
     std::ofstream myfile;
-    myfile.open ("output.txt");
+    myfile.open ("output.txt", std::ios::app);
 
     for (unsigned int i = 0; i < data.size(); i++)
     {
