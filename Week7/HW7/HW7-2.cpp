@@ -29,6 +29,143 @@ template <typename T>
 void insertionSort(vector<T>& data);
 template <typename T>
 void display(vector<T> data);
+template <typename ItemType>
+void outputFile(vector<ItemType> data);
+bool fileExists(string filePath);
+template<class T>
+void merge(std::vector<T>& v, int p, int q, int r);
+template<class T>
+void merge_sort(std::vector<T>& v, int p, int r);
+
+int main()
+{
+    string firstFileName, secondFileName, data, word, dataWord;
+    bool isInt = true;
+
+    //Prompt for file names
+    cout << "Enter file names with space: ";
+//    cin >> firstFileName >> secondFileName;
+    firstFileName = "int.txt";
+    secondFileName = "word.txt";
+
+    // File open error check
+    if (!fileExists(firstFileName))
+    {
+        cout << "File not found\n";
+        exit(0);
+    } else if (!fileExists(secondFileName)) {
+        cout << "File not found\n";
+        exit(0);
+    }
+
+    ifstream firstFileStreamIn(firstFileName);
+    ifstream secondFileStreamIn(secondFileName);
+
+    //Check for integer
+    firstFileStreamIn >> data;
+//    secondFileStreamIn >> data;
+    vector<int> values;
+    vector<string> words;
+    int number;
+
+    for (long unsigned int i = 0; i < data.length(); i++)
+    {
+        if (!isdigit(data[i]))
+        {
+            isInt = false;
+            break;
+        }
+    }
+
+    //If integer read into a int vector
+    if (isInt)
+    {
+
+        stringstream ss(data); // To grab the first value.
+        ss >> number;
+        values.push_back(number);
+        while (firstFileStreamIn >> data)
+        {
+            stringstream ss1(data);
+            ss1 >> number;
+            values.push_back(number);
+        }
+        while (secondFileStreamIn >> dataWord)
+        {
+            stringstream ss2(dataWord);
+            ss2 >> word;
+            words.push_back(word);
+        }
+        firstFileStreamIn.close();
+        secondFileStreamIn.close();
+
+    }
+    //String data
+    else
+    {
+        words.push_back(data);
+        while (firstFileStreamIn >> dataWord)
+        {
+            stringstream ss1(dataWord);
+            ss1 >> word;
+            words.push_back(word);
+        }
+        while (secondFileStreamIn >> data)
+        {
+            stringstream ss2(data);
+            ss2 >> number;
+            values.push_back(number);
+        }
+
+        firstFileStreamIn.close();
+        secondFileStreamIn.close();
+    }
+    // Display before nSort
+    cout << "\nValues before Sort:" << endl;
+    display(values);
+    cout << endl;
+    display(words);
+
+    cout << "\nValues after Merge Sort:" << endl;
+    int vsz = values.size();
+//    int wsz = words.size();
+    merge_sort(values, 0, vsz);
+//    merge_sort(words, 0, wsz);
+    display(values);
+    display(words);
+
+    outputFile(values);
+    outputFile(words);
+
+
+
+    return 0;
+}
+
+// Display the data to the console.
+template <typename ItemType>
+void display(vector<ItemType> data)
+{
+    for (unsigned int i = 0; i < data.size(); i++)
+    {
+        cout << data[i] << " ";
+    }
+}
+
+template <typename ItemType>
+void outputFile(vector<ItemType> data)
+{
+
+    std::ofstream myfile;
+    myfile.open ("output.txt");
+
+    for (unsigned int i = 0; i < data.size(); i++)
+    {
+        myfile << data[i] << " ";
+    }
+    myfile.close();
+}
+
 bool fileExists(string filePath)
 {
     ifstream ifile;
@@ -91,135 +228,5 @@ void merge_sort(std::vector<T>& v, int p, int r)
         merge_sort(v, p, q);
         merge_sort(v, q+1, r);
         merge(v, p, q, r);
-    }
-}
-
-int main()
-{
-    string firstFileName, secondFileName,data;
-    bool isInt = true;
-
-    //Prompt for file names
-    cout << "Enter file names with space: ";
-//    cin >> firstFileName >> secondFileName;
-    firstFileName = "int.txt";
-    secondFileName = "word.txt";
-
-    // File open error check
-    if (!fileExists(firstFileName))
-    {
-        cout << "File not found\n";
-        exit(0);
-    } else if (!fileExists(secondFileName))
-    {
-        cout << "File not found\n";
-        exit(0);
-    }
-
-    ifstream firstFileStreamIn(firstFileName);
-    ifstream secondFileStreamIn(secondFileName);
-
-    //Check for integer
-    firstFileStreamIn >> data;
-    for (long unsigned int i = 0; i < data.length(); i++)
-    {
-        if (!isdigit(data[i]))
-        {
-            isInt = false;
-            break;
-        }
-    }
-
-    //If integer read into a int vector
-    if (isInt)
-    {
-        vector<int> values;
-        int number;
-        stringstream ss(data); // To grab the first value.
-        ss >> number;
-        values.push_back(number);
-        while (firstFileStreamIn >> data)
-        {
-            stringstream ss1(data);
-            ss1 >> number;
-            values.push_back(number);
-        }
-        while (secondFileStreamIn >> data)
-        {
-            stringstream ss2(data);
-            ss2 >> number;
-            values.push_back(number);
-        }
-        firstFileStreamIn.close();
-        secondFileStreamIn.close();
-
-        // Display before insertionSort
-        cout << "Values before Sort:" << endl;
-        display(values);
-
-        // Call insertionSort
-//        insertionSort(values);
-        // Display after insertionSort
-        cout << "\nValues after Merge Sort:" << endl;
-        int vsz = values.size();
-        merge_sort(values, 0, vsz);
-        std::cout << "Entered values vector : ";
-        for(int n = 0; n < vsz; n++)
-        {
-            std::cout << values[n] <<" ";
-        }
-        display(values);
-    }
-    //String data
-    else
-    {
-        vector<string> values;
-        values.push_back(data);
-        while (firstFileStreamIn >> data)
-        {
-            values.push_back(data);
-        }
-        while (secondFileStreamIn >> data)
-        {
-            values.push_back(data);
-        }
-
-        firstFileStreamIn.close();
-        secondFileStreamIn.close();
-        cout << "Values before insertionSort:" << endl;
-        display(values);
-//        insertionSort(values);
-        int stringsz = values.size();
-        merge_sort(values, 0, stringsz);
-        cout << "\nValues after insertionSort:" << endl;
-        display(values);
-    }
-    return 0;
-}
-
-// Using insertion insertionSort O(n)
-template <typename ItemType>
-void insertionSort(vector<ItemType>& data)
-{
-    for (unsigned int i = 1; i < data.size(); i++)
-    {
-        ItemType key = data[i];
-        int j = i - 1;
-        while (j >= 0 && data[j] > key)
-        {
-            data[j + 1] = data[j];
-            j = j - 1;
-        }
-        data[j + 1] = key;
-    }
-}
-
-// Display the data to the console.
-template <typename ItemType>
-void display(vector<ItemType> data)
-{
-    for (unsigned int i = 0; i < data.size(); i++)
-    {
-        cout << data[i] << " ";
     }
 }
