@@ -32,12 +32,12 @@ void displaykthLargestInteger(vector<int> &dataVector, int k);
 
 int main()
 {
-    string firstFileName = "int.txt";
+    string firstFileName;
     int k = 9;
 
     //Prompt for file names
     cout << "Enter filename contain integers: ";
-//    cin >> firstFileName;
+    cin >> firstFileName;
     vector<int> values = preProcess<int>(firstFileName);
 
     cout << endl;
