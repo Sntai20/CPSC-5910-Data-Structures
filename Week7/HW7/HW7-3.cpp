@@ -6,6 +6,10 @@
  * in O(n) time. Hint: Research "sort in linear time" or "insertionSort in O(n) time" on the Internet.
  * Print the sorted array to the console. Your program should be fully contained in a file
  * called HW7-3.cpp and compile with the standard command-line flags.
+ *
+ * The specifications states all values in the array are between 1 and 1000 inclusive, which the minimum possible
+ * value in the array is 1 and the maximum possible value is 1000. If we did not have a defined range for the array,
+ * we would use climits to set the minimum value to INT_MIN and the maximum value to INT_MAX.
  */
 
 #include <iostream>
@@ -24,14 +28,10 @@ void printArray(int* data, int size)
 void countingSort (int *data, int size)
 {
     int* output = new int [size + 1];
-    // The assignment specifications state that all values in the array are between 1 and 1000 inclusive.
-    // Thus, we know that the minimum possible value in the array is 1 and the maximum possible value in
-    // the array is 1000. If we didn't have a defined range of possible values for the array, we'd use
-    // #inlcude<climits> and set the minimum value to INT_MIN and the maximum value to INT_MAX.
+
     int minRange = 1;
     int maxRange = 1000;
-    // Iterate over the array contents to set minRange and maxRange to the actual minimum and maximum values
-    // in the array.
+    // Iterate over the array contents to set minRange and maxRange to the minimum and maximum values
     for (int i = 0; i < size; i++)
     {
         minRange = std::min(minRange, data[i]);
@@ -76,6 +76,7 @@ int main() {
     std::cout << "This program creates an array of size n of randomly generated integers between 1 and 1000.\n"
                  "Please enter the integer n for the size of the array." << std::endl;
     std::cin >> n;
+
     // If the user enters an integer for n, tell user what integer the program will process as n
     // create an array of size n of randomly generated integers. Else print message telling user
     // that input error occurred.
