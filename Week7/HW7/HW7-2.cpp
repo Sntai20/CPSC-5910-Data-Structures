@@ -16,6 +16,12 @@
  * solution. It must be efficient to get full credit. Your program should be fully contained
  * in a file called HW7-2.cpp and compile with the standard command-line flags.
  *
+ * The sorting method implemented in HW7-2 is merge sort. Merge sort follows divide-and-conquer approach. It divides
+ * an array of n elements into two subarrays of n/2 elements each. Then it sort the two subarrays recursively
+ * using merge sort. And then these subarrays are merged to produce a single sorted array. The additional memory
+ * needed for merge sort is array of size n for merging any of two sorted vectors produced on any step of the
+ * algorithm. The first merge it allocates two vectors of n/2 length , then it will be four vectors of n/4 and the
+ * given time complexity (average case) is n * log(n).
  *
  */
 #include <iostream>
@@ -44,8 +50,6 @@ int main()
     //Prompt for file names
     cout << "Enter file names with space: ";
     cin >> firstFileName >> secondFileName;
-//    firstFileName = "int.txt";
-//    secondFileName = "word.txt";
 
     // File open error check
     if (!fileExists(firstFileName))
@@ -62,7 +66,6 @@ int main()
 
     // Check for integer
     firstFileStreamIn >> data;
-//    secondFileStreamIn >> data;
     vector<int> values;
     vector<string> words;
     int number;
@@ -98,7 +101,7 @@ int main()
         secondFileStreamIn.close();
 
     }
-    //String data
+    // String data
     else
     {
         words.push_back(data);
@@ -127,9 +130,9 @@ int main()
 
     cout << "\nValues after Merge Sort:" << endl;
     int vsz = values.size();
-//    int wsz = words.size();
+    //int wsz = words.size();
     merge_sort(values, 0, vsz);
-//    merge_sort(words, 0, wsz);
+    //merge_sort(words, 0, wsz);
     display(values);
     display(words);
 
@@ -151,7 +154,6 @@ void display(vector<ItemType> data)
 template <typename ItemType>
 void outputFile(vector<ItemType> data)
 {
-
     std::ofstream myfile;
     myfile.open ("output.txt", std::ios::app);
 
