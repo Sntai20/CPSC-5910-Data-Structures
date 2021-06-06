@@ -33,8 +33,6 @@ public:
         back of the queue.
      @param newEntry  The object to be added as a new entry.
      @return  True if the addition is successful or false if not. */
-//    virtual bool enqueue(const ItemType& newEntry) = 0;
-//    virtual bool enqueue(const int& newEntry) = 0;
     void enqueue( Patient& newEntry);
 
     /** Removes the front of this queue.
@@ -48,16 +46,45 @@ public:
      @post  The front of the queue has been returned, and the
         queue is unchanged.
      @return  The front of the queue. */
-//    virtual ItemType peekFront() const = 0;
-//    virtual int peekFront() const = 0;
-//    int peekFront() const = 0;
+    Patient peekFront();
 
-//    int size() const = 0;
+    /** Returns the size of this queue.
+     @pre  The queue is not empty.
+     @post  The queue size has been returned, and the
+        queue is unchanged.
+     @return  The size of the queue. */
+    int size();
 
     /** Destroy this queue and frees its assigned memory. */
     virtual ~PatientPriorityQueue(){ }
 
 }; // end PatientPriorityQueue
+
+PatientPriorityQueue::PatientPriorityQueue() = default;
+
+bool PatientPriorityQueue::isEmpty() {
+    return patientsVector.size() == 0 ;
+}
+
+void PatientPriorityQueue::enqueue(Patient &newEntry) {
+    patientsVector.push_back(newEntry);
+    // TODO Return a bool instead.
+}
+
+bool PatientPriorityQueue::dequeue() {
+    patientsVector.pop_back();
+    // TODO Remove the last element and resize.
+    return true;
+}
+
+int PatientPriorityQueue::size() {
+    return patientsVector.size();
+}
+
+Patient PatientPriorityQueue::peekFront() {
+    return patientsVector.front();
+}
+
 #endif //HW8_PATIENTPRIORITYQUEUE_H
 
 

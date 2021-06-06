@@ -12,37 +12,36 @@
 #include <string>
 using namespace std;
 
-
+/** Prints welcome message. */
 void welcome();
-// Prints welcome message.
 
+/** Prints goodbye message. */
 void goodbye();
-// Prints goodbye message.
 
+/** Prints help menu. */
 void help();
-// Prints help menu.
 
+/** Process the line entered from the user or read from the file. */
 bool processLine(string, PatientPriorityQueue &);
-//bool processLine(string);
-// Process the line entered from the user or read from the file.
 
+/** Adds the patient to the waiting room. */
 void addPatientCmd(string, PatientPriorityQueue &);
-//void addPatientCmd(string line);
-// Adds the patient to the waiting room.
 
+/** Displays the next patient in the waiting room that will be called. */
+void peekNextCmd(PatientPriorityQueue &);
+
+/** Removes a patient from the waiting room and displays the name on the screen. */
+void removePatientCmd(PatientPriorityQueue &);
+
+/** Displays the list of patients in the waiting room. */
+void showPatientListCmd(PatientPriorityQueue &);
+
+/** Reads a text file with each command on a separate line and executes the
+ * lines as if they were typed into the command prompt. */
 void execCommandsFromFileCmd(string, PatientPriorityQueue &);
-//void execCommandsFromFileCmd(string);
-// Reads a text file with each command on a separate line and executes the
-// lines as if they were typed into the command prompt.
 
+/** Delimits (by space) the string from user or file input. */
 string delimitBySpace(string &);
-// Delimits (by space) the string from user or file input.
-
-//void PatientPriorityQueue::enqueue(Patient &newEntry) {
-//    patientsVector.push_back(newEntry);
-//}
-
-PatientPriorityQueue::PatientPriorityQueue() = default;
 
 int main(int argc, char** argv) {
 
@@ -50,7 +49,8 @@ int main(int argc, char** argv) {
     string line ;
 
     cout << "You have entered " << argc
-         << " arguments:" << "\n";
+         << " arguments:" << endl;
+    cout << argv[1] << endl;
 
 	// welcome message
 	welcome();
@@ -61,13 +61,13 @@ int main(int argc, char** argv) {
 		cout << "\ntriage> ";
 		getline(cin, line);
 //	} while (processLine(line, priQueue));
-//    } while (processLine(argv[1]));
     } while (processLine(argv[1], priQueue));
+
 
 	// goodbye message
 	goodbye();
 }
-//bool processLine(string line) {
+
 bool processLine(string line, PatientPriorityQueue &priQueue) {
 	// get command
 	string cmd = delimitBySpace(line);
@@ -81,6 +81,12 @@ bool processLine(string line, PatientPriorityQueue &priQueue) {
 		help();
 	else if (cmd == "add")
 		addPatientCmd(line, priQueue);
+    else if (cmd == "peek")
+        peekNextCmd(priQueue);
+    else if (cmd == "next")
+        removePatientCmd(priQueue);
+    else if (cmd == "list")
+        showPatientListCmd(priQueue);
     else if (cmd == "load")
         execCommandsFromFileCmd(line, priQueue);
 	else if (cmd == "quit")
@@ -91,7 +97,6 @@ bool processLine(string line, PatientPriorityQueue &priQueue) {
 	return true;
 }
 void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
-//void addPatientCmd(string line) {
 	string priority, name, arrivalOrder;
 	int priorityLevel;
 
@@ -123,6 +128,28 @@ void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
     cout << "\nArrivalOrder: " << arrivalOrder <<
          " PriorityCode: " << priority << " Name: " << name <<
          " priorityLevel: " << priorityLevel << endl;
+}
+
+void peekNextCmd(PatientPriorityQueue &priQueue)
+{
+    // TODO: shows next patient to be seen
+    cout << "# patients waiting: " << priQueue.size() << endl;
+    peekNextCmd(priQueue);
+}
+
+void removePatientCmd(PatientPriorityQueue &priQueue)
+{
+    // TODO: removes and shows next patient to be seen
+    cout << "# patients waiting: " << priQueue.size() << endl;
+}
+
+void showPatientListCmd(PatientPriorityQueue &priQueue)
+{
+    cout << "# patients waiting: " << priQueue.size() << endl;
+    cout << "  Arrival #   Priority Code   Patient Name\n"
+         << "+-----------+---------------+--------------+\n";
+    // TODO: shows patient detail in heap order
+
 }
 
 void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue)
@@ -186,22 +213,6 @@ void help()
 << "help        Displays this menu\n"
 << "quit        Exits the program\n";
 }
-
-bool PatientPriorityQueue::isEmpty() {
-    return patientsVector.size() == 0 ;
-}
-
-void PatientPriorityQueue::enqueue(Patient &newEntry) {
-    patientsVector.push_back(newEntry);
-    // TODO Return a bool instead.
-}
-
-bool PatientPriorityQueue::dequeue() {
-    patientsVector.back();
-    // TODO Remove the last element and resize.
-    return true;
-}
-
 
 
 

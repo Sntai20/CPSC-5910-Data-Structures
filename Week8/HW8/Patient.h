@@ -20,25 +20,13 @@ class Patient {
     /** Private variable arrivalOrder (assigned arrival number) */
     std::string arrivalOrder;
 public:
-    Patient(std::string Name, std::string priority, std::string ArrivalOrder){
+    Patient();
+    Patient(std::string Name, std::string priority, std::string ArrivalOrder);
 
-        /** Private variable name (patient's full name) */
-        Name = name;
 
-        /** Private variable priorityCode (patient's assigned priority) */
-        priority = priorityCode;
 
-        /** Private variable arrivalOrder (assigned arrival number) */
-        ArrivalOrder =  arrivalOrder;
-}
-
-    /** Adds the patient to the waiting room. */
-//    void addPatientCmd(std::string line, PatientPriorityQueue &priQueue);
-
-    /** Displays the next patient in the waiting room that will be called. */
-
-//    /** to_string function that returns the string representation of the object. */
-//    std::string to_string();
+    /** to_string function that returns the string representation of the object. */
+    std::string to_string(Patient);
 
     // TODO overloaded operators in order to properly add, peek, and remove patients from the waiting room.
     //  How do you compare two patients? In other words, define what it means to be sorted.
@@ -47,6 +35,18 @@ public:
 
     /** Destroy this patient and frees it assigned memory. */
     virtual ~Patient(){ }
-
 };
+
+Patient::Patient(std::string Name, std::string priority, std::string ArrivalOrder)
+{
+    /** Private variable name (patient's full name) */
+    Name = name;
+
+    /** Private variable priorityCode (patient's assigned priority) */
+    priority = priorityCode;
+
+    /** Private variable arrivalOrder (assigned arrival number) */
+    ArrivalOrder =  arrivalOrder;
+}
+
 #endif //HW8_PATIENT_H
