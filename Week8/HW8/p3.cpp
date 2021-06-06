@@ -1,12 +1,14 @@
-// p3.cpp
+/*
+ * Created by Antonio Santana on 6/8/2021
+ * p3.cpp
+ */
 // TODO: add functional documentation (and inline comments, as necessary)
 
-#include "PatientPriorityQueue.h"
-#include "Patient.h"
+//#include "PatientPriorityQueue.h"
+//#include "Patient.h"
 
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 using namespace std;
 
@@ -20,48 +22,51 @@ void goodbye();
 void help();
 // Prints help menu.
 
-bool processLine(string, PatientPriorityQueue &);
+//bool processLine(string, PatientPriorityQueue &);
+bool processLine(string);
 // Process the line entered from the user or read from the file.
 
-void addPatientCmd(string, PatientPriorityQueue &);
+//void addPatientCmd(string, PatientPriorityQueue &);
 // Adds the patient to the waiting room.
 
-void peekNextCmd(PatientPriorityQueue &);
-// Displays the next patient in the waiting room that will be called.
-
-void removePatientCmd(PatientPriorityQueue &);
-// Removes a patient from the waiting room and displays the name on the screen.
-
-void showPatientListCmd(PatientPriorityQueue &);
-// Displays the list of patients in the waiting room.
-
-void execCommandsFromFileCmd(string, PatientPriorityQueue &); 
+//void execCommandsFromFileCmd(string, PatientPriorityQueue &);
+void execCommandsFromFileCmd(string);
 // Reads a text file with each command on a separate line and executes the
 // lines as if they were typed into the command prompt.
 
 string delimitBySpace(string &);
 // Delimits (by space) the string from user or file input.
 
+//void PatientPriorityQueue::enqueue(Patient &newEntry) {
+//    patientsVector.push_back(newEntry);
+//}
 
-int main() {
-	// declare variables
-	string line;
+//PatientPriorityQueue::PatientPriorityQueue() = default;
+
+int main(int argc, char** argv) {
+
+    // declare variables
+    string line ;
+
+    cout << "You have entered " << argc
+         << " arguments:" << "\n";
 
 	// welcome message
 	welcome();
 
 	// process commands
-	PatientPriorityQueue priQueue;
+//	PatientPriorityQueue priQueue;
 	do {
 		cout << "\ntriage> ";
 		getline(cin, line);
-	} while (processLine(line, priQueue));
+//	} while (processLine(line, priQueue));
+    } while (processLine(argv[1]));
 
 	// goodbye message
 	goodbye();
 }
-
-bool processLine(string line, PatientPriorityQueue &priQueue) {
+bool processLine(string line) {
+//bool processLine(string line, PatientPriorityQueue &priQueue) {
 	// get command
 	string cmd = delimitBySpace(line);
 	if (cmd.length() == 0) {
@@ -73,15 +78,10 @@ bool processLine(string line, PatientPriorityQueue &priQueue) {
 	if (cmd == "help")
 		help();
 	else if (cmd == "add")
-		addPatientCmd(line, priQueue);
-	else if (cmd == "peek")
-		peekNextCmd(priQueue);
-	else if (cmd == "next")
-		removePatientCmd(priQueue);
-	else if (cmd == "list")
-		showPatientListCmd(priQueue);
-	else if (cmd == "load")
-		execCommandsFromFileCmd(line, priQueue);
+//		addPatientCmd(line, priQueue);
+        cout << "addPatientCmd(" << line << ");" << endl;
+    else if (cmd == "load")
+        execCommandsFromFileCmd(line);
 	else if (cmd == "quit")
 		return false;
 	else
@@ -90,42 +90,37 @@ bool processLine(string line, PatientPriorityQueue &priQueue) {
 	return true;
 }
 
-void addPatientCmd(string line, PatientPriorityQueue &priQueue) { 
-	string priority, name; 
+//void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
+//	string priority, name;
+//
+//	// get priority and name
+//	priority = delimitBySpace(line);
+//	if (priority.length() == 0) {
+//		cout << "Error: no priority code given.\n";
+//		return;
+//	}
+//	name = line;
+//	if (name.length() == 0) {
+//		cout << "Error: no patient name given.\n";
+//		return;
+//	}
+//
+//	// TODO: add logic to remove leading/trailing spaces
+//	// TODO: validate priority is between 1 and 4
+//	// TODO: add patient
+//
+//	// Added for testing
+////	priQueue.patientsVector.push_back(line);
+//
+//
+//    Patient newPatient(name, priority);
+////	cout << newPatient.to_string();
+//
+//	priQueue.enqueue(newPatient);
+//}
 
-	// get priority and name
-	priority = delimitBySpace(line);
-	if (priority.length() == 0) {
-		cout << "Error: no priority code given.\n";
-		return;
-	}
-	name = line;
-	if (name.length() == 0) {
-		cout << "Error: no patient name given.\n";
-		return;
-	}
-
-	// TODO: add logic to remove leading/trailing spaces
-	// TODO: validate priority is between 1 and 4
-	// TODO: add patient
-}
-
-void peekNextCmd(PatientPriorityQueue &priQueue) {
-	// TODO: shows next patient to be seen
-}
-
-void removePatientCmd(PatientPriorityQueue &priQueue) {
-	// TODO: removes and shows next patient to be seen
-}
-
-void showPatientListCmd(PatientPriorityQueue &priQueue) {
-	cout << "# patients waiting: " << priQueue.size() << endl;
-	cout << "  Arrival #   Priority Code   Patient Name\n"
-		  << "+-----------+---------------+--------------+\n";
-	// TODO: shows patient detail in heap order
-}
-
-void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
+//void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
+void execCommandsFromFileCmd(string filename) {
 	ifstream infile;
 	string line;
 
@@ -135,7 +130,8 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
 		while (getline(infile, line)) {
 			cout << "\ntriage> " << line;
 			// process file input 
-			processLine(line, priQueue);
+//			processLine(line, priQueue);
+            processLine(line);
 		} 
 	} else {
 		cout << "Error: could not open file.\n";
@@ -145,7 +141,7 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
 }
 
 string delimitBySpace(string &s) {
-	unsigned pos = 0;
+	unsigned long pos = 0;
 	char delimiter = ' ';
 	string result = ""; 
 
@@ -158,11 +154,12 @@ string delimitBySpace(string &s) {
 }
 
 void welcome() {
-	// TODO
+	cout << "Welcome function: The following is a section of the console window: " << endl;
 }
 
 void goodbye() {
 	// TODO
+    cout << "// TODO goodbye function." << endl;
 }	
 
 void help() {
