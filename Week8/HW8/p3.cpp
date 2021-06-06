@@ -4,7 +4,7 @@
  */
 // TODO: add functional documentation (and inline comments, as necessary)
 
-//#include "PatientPriorityQueue.h"
+#include "PatientPriorityQueue.h"
 //#include "Patient.h"
 
 #include <fstream>
@@ -22,15 +22,16 @@ void goodbye();
 void help();
 // Prints help menu.
 
-//bool processLine(string, PatientPriorityQueue &);
-bool processLine(string);
+bool processLine(string, PatientPriorityQueue &);
+//bool processLine(string);
 // Process the line entered from the user or read from the file.
 
-//void addPatientCmd(string, PatientPriorityQueue &);
+void addPatientCmd(string, PatientPriorityQueue &);
+//void addPatientCmd(string line);
 // Adds the patient to the waiting room.
 
-//void execCommandsFromFileCmd(string, PatientPriorityQueue &);
-void execCommandsFromFileCmd(string);
+void execCommandsFromFileCmd(string, PatientPriorityQueue &);
+//void execCommandsFromFileCmd(string);
 // Reads a text file with each command on a separate line and executes the
 // lines as if they were typed into the command prompt.
 
@@ -41,7 +42,7 @@ string delimitBySpace(string &);
 //    patientsVector.push_back(newEntry);
 //}
 
-//PatientPriorityQueue::PatientPriorityQueue() = default;
+PatientPriorityQueue::PatientPriorityQueue() = default;
 
 int main(int argc, char** argv) {
 
@@ -55,18 +56,19 @@ int main(int argc, char** argv) {
 	welcome();
 
 	// process commands
-//	PatientPriorityQueue priQueue;
+	PatientPriorityQueue priQueue;
 	do {
 		cout << "\ntriage> ";
 		getline(cin, line);
 //	} while (processLine(line, priQueue));
-    } while (processLine(argv[1]));
+//    } while (processLine(argv[1]));
+    } while (processLine(argv[1], priQueue));
 
 	// goodbye message
 	goodbye();
 }
-bool processLine(string line) {
-//bool processLine(string line, PatientPriorityQueue &priQueue) {
+//bool processLine(string line) {
+bool processLine(string line, PatientPriorityQueue &priQueue) {
 	// get command
 	string cmd = delimitBySpace(line);
 	if (cmd.length() == 0) {
@@ -78,10 +80,9 @@ bool processLine(string line) {
 	if (cmd == "help")
 		help();
 	else if (cmd == "add")
-//		addPatientCmd(line, priQueue);
-        cout << "addPatientCmd(" << line << ");" << endl;
+		addPatientCmd(line, priQueue);
     else if (cmd == "load")
-        execCommandsFromFileCmd(line);
+        execCommandsFromFileCmd(line, priQueue);
 	else if (cmd == "quit")
 		return false;
 	else
@@ -89,49 +90,53 @@ bool processLine(string line) {
 
 	return true;
 }
+void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
+//void addPatientCmd(string line) {
+	string priority, name, arrivalOrder;
+	int priorityLevel;
 
-//void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
-//	string priority, name;
-//
-//	// get priority and name
-//	priority = delimitBySpace(line);
-//	if (priority.length() == 0) {
-//		cout << "Error: no priority code given.\n";
-//		return;
-//	}
-//	name = line;
-//	if (name.length() == 0) {
-//		cout << "Error: no patient name given.\n";
-//		return;
-//	}
-//
-//	// TODO: add logic to remove leading/trailing spaces
-//	// TODO: validate priority is between 1 and 4
-//	// TODO: add patient
-//
-//	// Added for testing
-////	priQueue.patientsVector.push_back(line);
-//
-//
-//    Patient newPatient(name, priority);
-////	cout << newPatient.to_string();
-//
-//	priQueue.enqueue(newPatient);
-//}
+	// get priority and name
+	priority = delimitBySpace(line);
+	if (priority.length() == 0) {
+		cout << "Error: no priority code given.\n";
+		return;
+	}
+	name = line;
+	if (name.length() == 0) {
+		cout << "Error: no patient name given.\n";
+		return;
+	}
 
-//void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
-void execCommandsFromFileCmd(string filename) {
+	// TODO: add logic to remove leading/trailing spaces
+	// TODO: validate priority is between 1 and 4
+	if (priority == "immediate") priorityLevel = 1;
+    if (priority == "emergency") priorityLevel = 2;
+    if (priority == "urgent") priorityLevel = 3;
+    if (priority == "minimal") priorityLevel = 4;
+
+	// TODO: add patient
+    Patient newPatient(name, priority, arrivalOrder);
+	priQueue.enqueue(newPatient);
+
+    // Added for testing
+    arrivalOrder = "0";
+    cout << "\nArrivalOrder: " << arrivalOrder <<
+         " PriorityCode: " << priority << " Name: " << name <<
+         " priorityLevel: " << priorityLevel << endl;
+}
+
+void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue)
+{
 	ifstream infile;
 	string line;
 
 	// open and read from file
 	infile.open(filename);
 	if (infile) {
-		while (getline(infile, line)) {
+		while (getline(infile, line))
+		{
 			cout << "\ntriage> " << line;
-			// process file input 
-//			processLine(line, priQueue);
-            processLine(line);
+			processLine(line, priQueue);
 		} 
 	} else {
 		cout << "Error: could not open file.\n";
@@ -140,7 +145,8 @@ void execCommandsFromFileCmd(string filename) {
 	infile.close();
 }
 
-string delimitBySpace(string &s) {
+string delimitBySpace(string &s)
+{
 	unsigned long pos = 0;
 	char delimiter = ' ';
 	string result = ""; 
@@ -153,16 +159,19 @@ string delimitBySpace(string &s) {
 	return result;
 }
 
-void welcome() {
+void welcome()
+{
 	cout << "Welcome function: The following is a section of the console window: " << endl;
 }
 
-void goodbye() {
+void goodbye()
+{
 	// TODO
     cout << "// TODO goodbye function." << endl;
 }	
 
-void help() {
+void help()
+{
 	cout << "add <priority-code> <patient-name>\n"
 << "            Adds the patient to the triage system.\n"
 << "            <priority-code> must be one of the 4 accepted priority codes:\n"
@@ -177,3 +186,38 @@ void help() {
 << "help        Displays this menu\n"
 << "quit        Exits the program\n";
 }
+
+bool PatientPriorityQueue::isEmpty() {
+    return patientsVector.size() == 0 ;
+}
+
+void PatientPriorityQueue::enqueue(Patient &newEntry) {
+    patientsVector.push_back(newEntry);
+    // TODO Return a bool instead.
+}
+
+bool PatientPriorityQueue::dequeue() {
+    patientsVector.back();
+    // TODO Remove the last element and resize.
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
