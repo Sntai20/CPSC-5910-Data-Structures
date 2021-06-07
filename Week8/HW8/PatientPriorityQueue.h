@@ -12,14 +12,11 @@
 
 class PatientPriorityQueue {
 private:
+    int nextPatientNumber;
     /** Uses an vector<Patient> to store the patients in heap order. */
     std::vector <Patient> patientsVector;
 
-//    /** Private variable nextPatientNumber is used to keep track of the last patient inserted into the heap */
-//    int priorityCode{};
-//
-//    /** Private variable arrivalOrder (assigned arrival number) */
-//    int arrivalOrder{};
+
 public:
     /** Default constructor */
     PatientPriorityQueue();
@@ -60,7 +57,9 @@ public:
 
 }; // end PatientPriorityQueue
 
-PatientPriorityQueue::PatientPriorityQueue() = default;
+PatientPriorityQueue::PatientPriorityQueue(){
+    nextPatientNumber = 0 ;
+}
 
 bool PatientPriorityQueue::isEmpty() {
     return patientsVector.size() == 0 ;
