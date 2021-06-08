@@ -2,7 +2,7 @@
 
 ## Instructions:
 
-You are creating a priority queue system (triage) for a hospital emergency room. The levels of priority for the patients are the following:
+You are creating a priority queue system (triage) for a hospital emergency room. The levels of priority for the _patientsVector are the following:
 
 Level | Priority Code | Should be seen by provider within
 ----- | ------------- | ---------------------------------
@@ -11,7 +11,7 @@ Level | Priority Code | Should be seen by provider within
 3	    | urgent	      | 30 minutes
 4	    | minimal	      | 120 minutes
 
-The triage nurse will determine the patient's priority based on their injury or illness and enter the patient's full name along with the urgency level based on the table above to indicate the priority.
+The triage nurse will determine the patient's priority based on their injury or illness and enter the patient's full _name along with the urgency level based on the table above to indicate the priority.
 
 ## Commands 
 The interface of the program is a command-line prompt that supports the following commands:
@@ -21,7 +21,7 @@ The interface of the program is a command-line prompt that supports the followin
 The ```add``` command has 2 operands that need to be supplied, separated by space.
 
 * The ```<priority-code>``` operand must be one of the valid emergency keywords from the above table.
-* The ```<patient-name>``` operand is the legal name of the patient, and may contain spaces or punctuation
+* The ```<patient-_name>``` operand is the legal _name of the patient, and may contain spaces or punctuation
 
 Here are some examples (user's input comes after the command prompt of ```triage>``` which your program prints):
 
@@ -49,7 +49,7 @@ Highest priority patient to be called next: Brenton Jamison
 
 ### ```next``` command
 
-Removes the waiting patient from the priority system and announces the name.
+Removes the waiting patient from the priority system and announces the _name.
 
 Example:
 
@@ -60,12 +60,12 @@ This patient will now be seen: Brenton Jamison
 
 ### ```list``` command
 
-Displays the list of patients currently in the waiting room. Note that the list of patients should always be in heap order, so this command may be useful for debugging issues with your heap.
+Displays the list of _patientsVector currently in the waiting room. Note that the list of _patientsVector should always be in heap order, so this command may be useful for debugging issues with your heap.
 
 Example:
 ```
 triage> list
-# patients waiting: 1
+# _patientsVector waiting: 1
 
   Arrival #   Priority Code   Patient Name
 +-----------+---------------+--------------+
@@ -85,15 +85,15 @@ This command is implemented for you. It reads a text file (i.e. "commands.txt") 
 Displays the following text to the user:
 ```
 triage> help
-add <priority-code> <patient-name>
+add <priority-code> <patient-_name>
             Adds the patient to the triage system.
             <priority-code> must be one of the 4 accepted priority codes:
                 1. immediate 2. emergency 3. urgent 4. minimal
-            <patient-name>: patient's full legal name (may contain spaces)
+            <patient-_name>: patient's full legal _name (may contain spaces)
 next        Announces the patient to be seen next. Takes into account the
             type of emergency and the patient's arrival order.
 peek        Displays the patient that is next in line, but keeps in queue
-list        Displays the list of all patients that are still waiting
+list        Displays the list of all _patientsVector that are still waiting
             in the order that they have arrived.
 load <file> Reads the file and executes the command on each line
 help        Displays this menu
@@ -115,9 +115,9 @@ The person that you inherited this project from has done most of the user interf
 
 The ```Patient``` class should contain:
 
-* private variables ```name``` (patient's full name), ```priorityCode ```(patient's assigned priority), and ```arrivalOrder``` (assigned arrival number).
-* overloaded operators in order to properly add, peek, and remove patients from the waiting room.
-  * How do you compare two patients? In other words, define what it means to be sorted. Document any assumptions you make.
+* private variables ```_name``` (patient's full _name), ```_priorityCode ```(patient's assigned priority), and ```_arrivalOrder``` (assigned arrival number).
+* overloaded operators in order to properly add, peek, and remove _patientsVector from the waiting room.
+  * How do you compare two _patientsVector? In other words, define what it means to be sorted. Document any assumptions you make.
 * ```to_string``` function that returns the string representation of the object.
 For example: Jane Smith { pri=urgent, arrive=3 }
 * constructor(s) and any other required functions needed to make the class work.
@@ -130,17 +130,17 @@ Do not create any additional files. ```Patient.h``` should include the entire cl
 
 ## ```PatientPriorityQueue``` class details (```PatientPriorityQueue.h```):
 
-Uses an ```vector<Patient>``` to store the patients in heap order. Private variable nextPatientNumber is used to keep track of the last patient inserted into the heap, so that as patients arrive, they will get assigned proper arrivalOrder (start numbering at 1).
+Uses an ```vector<Patient>``` to store the _patientsVector in heap order. Private variable _nextPatientNumber is used to keep track of the last patient inserted into the heap, so that as _patientsVector arrive, they will get assigned proper _arrivalOrder (start numbering at 1).
 
-Note that when determining which patient needs to be seen next, the higher level of emergency (table at the top of the page) patients will always be seen first. If there is a tie, and multiple patients have the same level of emergency, the order that they have arrived in the waiting room will be used to break the tie.
+Note that when determining which patient needs to be seen next, the higher level of emergency (table at the top of the page) _patientsVector will always be seen first. If there is a tie, and multiple _patientsVector have the same level of emergency, the order that they have arrived in the waiting room will be used to break the tie.
 
 You will need to implement the following public functions:
 
-* Constructor - Creates an empty triage system with no patients.
-* ```add``` - Adds the patient to the priority queue. Heap order is defined as the order that patients must be seen, so this function needs to maintain heap order.
+* Constructor - Creates an empty triage system with no _patientsVector.
+* ```add``` - Adds the patient to the priority queue. Heap order is defined as the order that _patientsVector must be seen, so this function needs to maintain heap order.
 * ```peek``` - Returns the highest priority patient without removing it.
 * ```remove``` - Removes the highest priority patient from the queue and returns it. This function needs to maintain heap order.
-* ```size``` - Returns the number of patients still waiting.
+* ```size``` - Returns the number of _patientsVector still waiting.
 * ```to_string``` - Returns the string representation of the object in heap (or level) order.
   * You may want to ```#include <sstream>``` and use a ```stringstream``` object to capture the string traversal.
 
@@ -149,7 +149,7 @@ You will need to implement the following public functions:
 * You may use the code from [Week 8 in-class lab](https://github.com/smcmaster-seattleu/cpsc-5910/tree/main/Week8/Lecture), which has heap and priority queue implementations.
 
 * The implementations of member functions must match the public declarations provided above. Do not change the arguments, return values, or function names defined above.
-* Do not add any additional public functions or fields to the PatientPriorityQueue class. You may create additional private helper functions or fields. Remember that helper functions may have the same name as the public function, but will need to have different arguments.
+* Do not add any additional public functions or fields to the PatientPriorityQueue class. You may create additional private helper functions or fields. Remember that helper functions may have the same _name as the public function, but will need to have different arguments.
 * Do not create any additional files. ```PatientPriorityQueue.h``` should include the entire class definition (specification and implementation).
 * You are not allowed to use any printing/reading from console in the ```PatientPriorityQueue``` class (i.e. cout, cin, printf, etc).
 
@@ -159,15 +159,15 @@ You will need to implement the following public functions:
 The following is a section of the console window:
 
 triage> help
-add <priority-code> <patient-name>
+add <priority-code> <patient-_name>
             Adds the patient to the triage system.
             <priority-code> must be one of the 4 accepted priority codes:
                 1. immediate 2. emergency 3. urgent 4. minimal
-            <patient-name>: patient's full legal name (may contain spaces)
+            <patient-_name>: patient's full legal _name (may contain spaces)
 next        Announces the patient to be seen next. Takes into account the
             type of emergency and the patient's arrival order.
 peek        Displays the patient that is next in line, but keeps in queue
-list        Displays the list of all patients that are still waiting
+list        Displays the list of all _patientsVector that are still waiting
             in the order that they have arrived.
 load <file> Reads the file and executes the command on each line
 help        Displays this menu
@@ -183,7 +183,7 @@ triage> add immediate Brenton Jamison
 Added patient "Brenton Jamison" to the priority system
 
 triage> list
-# patients waiting: 3
+# _patientsVector waiting: 3
 
   Arrival #   Priority Code   Patient Name
 +-----------+---------------+--------------+
@@ -198,7 +198,7 @@ triage> next
 This patient will now be seen: Brenton Jamison
 
 triage> list
-# patients waiting: 2
+# _patientsVector waiting: 2
 
   Arrival #   Priority Code   Patient Name
 +-----------+---------------+--------------+
@@ -212,7 +212,7 @@ triage> next
 This patient will now be seen: Sirjames
 
 triage> next
-There are no patients in the waiting area.
+There are no _patientsVector in the waiting area.
 
 triage> load /home/fac/ohsh/submit/20fq5910/files/p3-files/commands.txt
 
@@ -256,7 +256,7 @@ triage> add emergency Terrence Huddleston
 Added patient "Terrence Huddleston" to the priority system
 
 triage> list
-# patients waiting: 13
+# _patientsVector waiting: 13
 
   Arrival #   Priority Code   Patient Name
 +-----------+---------------+--------------+
@@ -277,7 +277,7 @@ triage> list
 
 ## Submission:
 
-* Create a SINGLE folder *named with your SU email name* containing ONLY source code for this problem plus the plot of timings image.
+* Create a SINGLE folder *named with your SU email _name* containing ONLY source code for this problem plus the plot of timings image.
   * ```.h``` files
   * ```.cpp``` files
   * ```CMakeLists.txt```
@@ -298,4 +298,4 @@ If your code does not compile using the following command line:
 
 you *will* lose points, up to and including receiving a 0 on the assignment.
 
-You must name your files ```Patient.h```, ```PatientPriorityQueue.h```, and ```p3.cpp```
+You must _name your files ```Patient.h```, ```PatientPriorityQueue.h```, and ```p3.cpp```
